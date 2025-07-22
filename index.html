@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>支持 ChatGPT 的机场推荐</title>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      body.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      setThemeIcon(newTheme);
+      return;
+    }
+
+    function setThemeIcon(theme) {
+      const iconSpan = document.getElementById("theme-icon");
+      if (iconSpan) {
+        iconSpan.textContent = theme === "light" ? "🌙" : "☀️";
+      }
+    }
+
+    // 初始化主题
+    window.onload = function () {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      document.body.setAttribute('data-theme', savedTheme);
+      setThemeIcon(savedTheme);
+    };
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(120deg, #0f0c29, #302b63);
+      margin: 0;
+      padding: 2rem;
+      color: #e0e0e0;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 1.2rem;
+    }
+
+    blockquote {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1rem 1.5rem;
+      border-left: 4px solid #f39c12;
+      font-style: italic;
+      margin-bottom: 2rem;
+      color: #ffebc6;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      color: #e5e5e5;
+    }
+
+    .card h3 {
+      color: #7ed6df;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .tagline {
+      color: #c8d6e5;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .price {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      color: #dddddd;
+    }
+
+    .price span {
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .link-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      color: #f0f0f0;
+      font-weight: 600;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .link-btn:hover {
+      background: linear-gradient(135deg, #0072ff, #00c6ff);
+    }
+
+    .highlight {
+      color: #e17055;
+      font-weight: bold;
+    }
+
+    .note {
+      background-color: rgba(255, 255, 255, 0.07);
+      padding: 1rem;
+      border-left: 4px solid #f1c40f;
+      margin-top: 1rem;
+      color: #ffeaa7;
+    }
+
+    body[data-theme='light'] {
+      background: linear-gradient(120deg, #e6f4ea, #c9e4d6);
+      color: #2c3e50;
+    }
+
+    body[data-theme='light'] h2 {
+      color: #2c3e50;
+    }
+
+    body[data-theme='light'] blockquote {
+      background: rgba(255, 255, 255, 0.8);
+      color: #2c3e50;
+      border-left: 4px solid #66bb6a;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    body[data-theme='light'] .card {
+      background: rgba(255, 255, 255, 0.85);
+      color: #2c3e50;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    body[data-theme='light'] .card h3 {
+      color: #2e7d32;
+    }
+
+    body[data-theme='light'] .tagline {
+      color: #388e3c;
+    }
+
+    body[data-theme='light'] .price {
+      background: #f0f3f4;
+      color: #2c3e50;
+    }
+
+    body[data-theme='light'] .note {
+      background: #fffbe6;
+      color: #2c3e50;
+      border-left-color: #f39c12;
+    }
+
+    body[data-theme='light'] .link-btn {
+      background: linear-gradient(135deg, #66bb6a, #43a047);
+      color: #fff;
+    }
+
+    body[data-theme='light'] .link-btn:hover {
+      background: linear-gradient(135deg, #43a047, #66bb6a);
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <div style="text-align:right; margin-bottom:1rem;">
+    <button onclick="toggleTheme()" id="theme-toggle-btn" style="padding: 0.5rem 1rem; border: none; border-radius: 6px; background-color: #ffffff33; color: #fff; cursor: pointer; font-weight: 600;">
+      <span id="theme-icon">🌙</span> 切换模式
+    </button>
+  </div>
+
+  <h2>支持 ChatGPT 的机场推荐</h2>
+  <p style="text-align:center; color:#dcdde1; font-size:1.1rem; margin-top:-0.5rem; margin-bottom:2rem;">
+    🚀 高速 · 稳定 · 解锁流媒体 · 支持 ChatGPT
+  </p>
+  <blockquote>最近整理了一批高速稳定、价格亲民、完美支持 ChatGPT 和流媒体解锁的优质机场，适合日常科学上网、远程办公与内容解锁需求，欢迎参考体验 🎁</blockquote>
+
+  <section class="card">
+    <h3>Bigme 大米加速 ★★★★★</h3>
+    <div class="tagline">SS / Trojan / Hysteria 2 多协议，流媒体解锁好</div>
+    <p>2023 年开业，主打性价比，支持 Netflix、Disney+、TikTok 和 ChatGPT。不限时长按量付费，全节点公网中转。</p>
+    <div class="price">
+      <span>超小：￥6/月，45G/月（年付￥57）</span>
+      <span>中：￥10/季度，120G/月（年付￥96）</span>
+      <span>不限时流量Small：￥55，永久 400G 流量</span>
+    </div>
+    <a href="https://1s.bigmeok.me/user#/register?code=hrBKYct6" class="link-btn" target="_blank">访问官网</a>
+  </section>
+
+  <section class="card">
+    <h3>Nutbit 坚果机场 ★★★★☆</h3>
+    <div class="tagline">SS 协议，支持多平台</div>
+    <p>2022 年开业，稳定佛系，全节点公网中转。支持 Netflix、Disney+、TikTok 和 ChatGPT。</p>
+    <div class="price">
+      <span>开心果：￥15/季度，50G/月（不常见）</span>
+      <span>核桃：￥15/月，100G/月</span>
+      <span>杏仁：￥24/月，200G/月</span>
+    </div>
+    <p class="note">
+      <s>🎁 <strong>五一优惠：</strong>全套餐 <strong>8 折</strong>（除开心果），结账输入优惠码：<strong>51</strong></s>
+    </p>
+    <a href="https://www.nutbit.net/#/register?code=ITvJagqb" class="link-btn" target="_blank">访问官网</a>
+  </section>
+
+  <section class="card">
+    <h3>FATCAT 肥猫云机场 ★★★★★</h3>
+    <div class="tagline">Trojan 协议，专线稳定，团队海外</div>
+    <p>2023 年成立，IEPL 专线节点，支持多流媒体和 ChatGPT，年付套餐优惠大。</p>
+    <div class="price">
+      <span>肥猫小包：￥72/年，60G/月（爆款限时热销）</span>
+      <span>基础版：￥20/月，200G/月（3年付享6折）</span>
+    </div>
+    <p class="note">
+      <s>🎉 51 活动至 5.14：全场 8 折，优惠码：<strong>happy51</strong></s>
+    </p>
+    <a href="https://inv01.fatcatcloud.cc/register?aff=wzxvsdIy" class="link-btn" target="_blank">访问官网</a>
+  </section>
+
+  <section class="card">
+    <h3>阿拉丁机场 ★★★★★</h3>
+    <div class="tagline">SS 协议，奈飞免登录，中转性价比高</div>
+    <p>2024 年开业，支持多地区节点和个性化定制。Netflix、Disney+、ChatGPT 支持优良。</p>
+    <div class="price">
+      <span>入门套餐：￥8/月，50G/月</span>
+      <span>轻量套餐：￥15/月，100G/月</span>
+      <span>基础套餐：￥30/月，250G/月</span>
+    </div>
+    <a href="https://www.avatargpt.xyz/register?aff=9D4SamHzdl" class="link-btn" target="_blank">访问官网</a>
+  </section>
+
+  <section class="card">
+    <h3>Riolu 精灵学院 ★★★★☆</h3>
+    <div class="tagline">SS / Vless / Trojan 多协议，小白友好</div>
+    <p>2023 年开业，支持直连+中转，多协议自选，客户端定制化体验。</p>
+    <div class="price">
+      <span>Iron：￥6/月，30G/月（季付￥15）</span>
+      <span>Iron Plus：￥12/月，120G/月（年付￥125）</span>
+      <span>不限时流量Small：￥60，永久 400G 流量</span>
+    </div>
+    <p class="note">新用户季/年付可用 95 折优惠码：<strong>New2025</strong></p>
+    <a href="https://2o.riolu.sbs/register?aff=UNlKm79n" class="link-btn" target="_blank">访问官网</a>
+  </section>
+
+  <blockquote>
+    综合来看，<strong class="highlight">若你追求极致性价比、用量适中</strong>，那 Bigme 大米加速的超小套餐无疑是“神中神”——每月仅 4.75 元，就能轻松畅享全球网络，虽流量仅 45G，但足以满足日常 ChatGPT 与轻量访问所需。
+  </blockquote>
+
+</body>
+</html>
