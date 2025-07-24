@@ -1,0 +1,130 @@
+
+
+[
+  {
+    "name": "蓝帆云机场",
+    "star": "★★★★★",
+    "description": "蓝帆云是一家 2024 年新开的机场，支持 ShadowsocksR 和 Vmess 多种协议。蓝帆云解锁能力一般，节点数量很多，覆盖国内常用地区，没有冷门地区节点。",
+    "tags": "BGP中转 + IPLC 专线节点 SSR / V2ray 机场",
+    "protocols": ["SSR", "V2ray"],
+    "price": "￥11.99/月",
+    "traffic": "50G/月",
+    "meal": ["入门版：￥11.99/月，50G流量。"],
+    "chatgpt": true,
+    "streaming": "一般",
+    "annual_discount": "7折",
+    "discount": "🎉 年费7折优惠代码：lanfan 请购买时验证使用。在新疆省无法使用！请勿购买",
+    "url": "https://lanfanz.cc/auth/register?code=E1I7",
+    "parallel": true
+  },
+  {
+    "name": "Bigme 大米加速",
+    "star": "★★★★★",
+    "description": "2023 年开业，主打性价比，支持 Netflix、Disney+、TikTok 和 ChatGPT。不限时长按量付费，全节点公网中转。",
+    "tags": "SS / Trojan / Hysteria 2 多协议，流媒体解锁好",
+    "meal": ["超小：￥6/月，45G/月（年付￥57）", "中：￥10/季度，120G/月（年付￥96）", "不限时流量Small：￥55，永久 400G 流量"],
+    "protocols": ["SS", "Trojan", "Hysteria 2"],
+    "price": "￥6/月起",
+    "traffic": "45G/月起",
+    "chatgpt": true,
+    "streaming": "优秀",
+    "annual_discount": "8折",
+    "url": "https://1s.bigmeok.me/user#/register?code=hrBKYct6",
+    "parallel": true
+  },
+  {
+    "name": "守候网络",
+    "star": "★★★★☆",
+    "description": "守候网络是一家 2020 年成立的老牌翻墙机场，Shadowsocks 协议，国内有多个接入口，包含广州、深圳、江苏、北京入口，公网隧道中转、IPLC 专线、IEPL 专线混合网络。守候网络线路有分级，不同套餐可用线路不同，也有 0.2 低倍率节点可用。守候网络有不错的 Netflix、Disney+ 流媒体以及 TikTok、ChatGPT 解锁能力。",
+    "tags": "IPLC/IEPL 精品专线 国内多入口 Shadowsocks 机场 流媒体解锁不错 0.2 低倍率节点 EMBY 守候影院",
+    "protocols": ["Shadowsocks"],
+    "price": "￥9.9/月",
+    "traffic": "50G/月",
+    "meal": ["冲浪套餐：￥15/月，88G流量/月。"],
+    "discount": "年付 8 折",
+    "url": "https://u996.xn--hwqp2zit2amna.com/auth/register?code=UjyDxcbN"
+    
+  },
+  {
+    "name": "一云梯",
+    "star": "★★★★☆",
+    "description": "一云梯是一家 2024 年开业的新星机场，Trojan 协议，IPLC 专线机场，解锁 Netflix、Disney+ 和 ChatGPT、TikTok 等。一云梯机场逢节假日一般都有优惠活动，性价比比较高。",
+    "tags": "IPLC 专线机场 性价比机场选择 Trojan 协议节点",
+    "protocols": ["Trojan", "IPLC"],
+    "price": "￥9.9/月",
+    "traffic": "50G/月",
+    "meal": ["VIP1：￥15/月，100G流量/月。", "云梯小年包 - 限时热销：¥98 / 年付 - 8折优惠，强烈推荐，60G流量/月。"],
+    "discount": "年付优惠码；85nianfu（适用于VIP1,2,3,4 套餐的 年付/2年付/3年付）",
+    "url": "https://inv02.1ytaff.com/register?aff=I13K7myj"
+    
+  },
+  {
+    "name": "FlyingBird 飞鸟机场",
+    "star": "★★★★☆",
+    "description": "FlyingBird 飞鸟机场是一家新晋 Shadowsocks 翻墙服务商，采用 IPLC 专线节点，服务稳定可靠。FlyingBird 飞鸟机场对年付套餐优惠力度较大，所有套餐季付9折，半年85折，年付8折。除了优惠力度大之外，飞鸟机场对 Netflix、Disney+ 流媒体解锁支持度也很好。",
+    "tags": "稳定高端专线 Shadowsocks 机场 流媒体解锁不错",
+    "meal": ["青铜套餐：¥15/月，100G流量/月，不限速不限设备。"],
+    "discount": "所有套餐季付9折，半年85折，年付8折，请点下一步自行购买！",
+    "protocols": ["Shadowsocks"],
+    "price": "¥15/月",
+    "traffic": "100G/月",
+    "chatgpt": true,
+    "streaming": "优秀",
+    "annual_discount": "年付8折",
+    "url": "https://fbinv02.fbaff.cc/auth/register?code=MyGxxwty",
+    "parallel": true
+  },
+  {
+    "name": "FATCAT 肥猫云机场",
+    "star": "★★★★☆",
+    "description": "2023 年成立，IEPL 专线节点，支持多流媒体和 ChatGPT，年付套餐优惠大。",
+    "tags": "Trojan 协议，专线稳定，团队海外",
+    "protocols": ["Shadowsocks"],
+    "price": "￥9.9/月",
+    "traffic": "50G/月",
+    "meal": ["肥猫小包：￥72/年，60G/月（爆款限时热销）", "基础版：￥20/月，200G/月（3年付享6折）"],
+    "discount": "🎉 51 活动至 5.14：全场 8 折，优惠码：happy51",
+    "discount_expire": true,
+    "url": "https://inv02.fatcatcloud.cc/register?aff=wzxvsdIy"
+    
+  },
+  {
+    "name": "阿拉丁机场",
+    "star": "★★★★★",
+    "description": "2024 年开业，支持多地区节点和个性化定制。Netflix、Disney+、ChatGPT 支持优良。",
+    "tags": "SS 协议，奈飞免登录，中转性价比高",
+    "protocols": ["Shadowsocks"],
+    "price": "￥9.9/月",
+    "traffic": "50G/月",
+    "meal": ["入门套餐：￥8/月，50G/月", "轻量套餐：￥15/月，100G/月"],
+    "url": "https://www.avatargpt.xyz/register?aff=9D4SamHzdl"
+    
+  },
+  {
+    "name": "Riolu 精灵学院",
+    "star": "★★★★☆",
+    "description": "2023 年开业，支持直连+中转，多协议自选，客户端定制化体验。",
+    "tags": "SS / Vless / Trojan 多协议，小白友好",
+    "protocols": ["Vless", "Trojan"],
+    "meal": ["Iron：￥6/月，30G/月（季付￥15）", "Iron Plus：￥12/月，120G/月（年付￥125）", "不限时流量Small：￥60，永久 400G 流量"],
+    "discount": "新用户优惠码： New2025（九五折，季付、半年付、年付可用，不限时不可用）",
+    "url": "https://jump.riolu.work/register?aff=UNlKm79n"
+    
+  },
+  {
+    "name": "Nutbit 坚果机场",
+    "star": "★★★★☆",
+    "description": "2022 年开业，稳定佛系，全节点公网中转。支持 Netflix、Disney+、TikTok 和 ChatGPT。",
+    "tags": "SS 协议，支持多平台",
+    "protocols": ["SSR", "V2ray"],
+
+    "meal": ["开心果：￥15/季度，50G/月（不常见）", "核桃：￥15/月，100G/月", "杏仁：￥24/月，200G/月"],
+    "chatgpt": true,
+    "streaming": "一般",
+    "annual_discount": "7折",
+    "discount": "🎁 五一优惠：全套餐 8 折（除开心果），结账输入优惠码：51",
+    "discount_expire": true,
+    "url": "https://www.nutbit.net/#/register?code=ITvJagqb"
+    
+  }
+]
