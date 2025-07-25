@@ -7,11 +7,9 @@
     "description": "蓝帆云是一家 2024 年新开的机场，支持 ShadowsocksR 和 Vmess 多种协议。蓝帆云解锁能力一般，节点数量很多，覆盖国内常用地区，没有冷门地区节点。",
     "tags": "BGP中转 + IPLC 专线节点 SSR / V2ray 机场",
     "protocols": ["SSR", "V2ray"],
-    "price": "￥11.99/月",
-    "traffic": "50G/月",
+    "price": "￥11.99/月起",
+    "traffic": "50G/月起",
     "meal": ["入门版：￥11.99/月，50G流量。"],
-    "chatgpt": true,
-    "streaming": "一般",
     "annual_discount": "7折",
     "discount": "🎉 年费7折优惠代码：lanfan 请购买时验证使用。在新疆省无法使用！请勿购买",
     "url": "https://lanfanz.cc/auth/register?code=E1I7",
@@ -23,14 +21,27 @@
     "description": "2023 年开业，主打性价比，支持 Netflix、Disney+、TikTok 和 ChatGPT。不限时长按量付费，全节点公网中转。",
     "tags": "SS / Trojan / Hysteria 2 多协议，流媒体解锁好",
     "meal": ["超小：￥6/月，45G/月（年付￥57）", "中：￥10/季度，120G/月（年付￥96）", "不限时流量Small：￥55，永久 400G 流量"],
-    "protocols": ["SS", "Trojan", "Hysteria 2"],
+    "protocols": ["Trojan", "Hysteria 2", "Anytls"],
     "price": "￥6/月起",
     "traffic": "45G/月起",
-    "chatgpt": true,
-    "streaming": "优秀",
     "annual_discount": "8折",
     "url": "https://1s.bigmeok.me/user#/register?code=hrBKYct6",
     "parallel": true
+  },
+  {
+    "name": "Riolu 精灵学院",
+    "star": "★★★★☆",
+    "description": "2023 年开业，支持直连+中转，多协议自选，客户端定制化体验。",
+    "tags": "SS / Vless / Trojan 多协议，小白友好",
+    "meal": ["Iron：￥6/月，30G/月（季付￥15）", "Iron Plus：￥12/月，120G/月（年付￥125）", "不限时流量Small：￥60，永久 400G 流量"],
+    "discount": "新用户优惠码： New2025（九五折，季付、半年付、年付可用，不限时不可用）",
+    "url": "https://jump.riolu.work/register?aff=UNlKm79n",
+    "protocols": ["SS", "Trojan", "Hysteria 2"],
+    "price": "￥6/月起",
+    "traffic": "30G/月起",
+    "annual_discount": "95折",
+    "parallel": true
+    
   },
   {
     "name": "守候网络",
@@ -72,7 +83,7 @@
     "streaming": "优秀",
     "annual_discount": "年付8折",
     "url": "https://fbinv02.fbaff.cc/auth/register?code=MyGxxwty",
-    "parallel": true
+    "parallel": false
   },
   {
     "name": "FATCAT 肥猫云机场",
@@ -98,17 +109,6 @@
     "traffic": "50G/月",
     "meal": ["入门套餐：￥8/月，50G/月", "轻量套餐：￥15/月，100G/月"],
     "url": "https://www.avatargpt.xyz/register?aff=9D4SamHzdl"
-    
-  },
-  {
-    "name": "Riolu 精灵学院",
-    "star": "★★★★☆",
-    "description": "2023 年开业，支持直连+中转，多协议自选，客户端定制化体验。",
-    "tags": "SS / Vless / Trojan 多协议，小白友好",
-    "protocols": ["Vless", "Trojan"],
-    "meal": ["Iron：￥6/月，30G/月（季付￥15）", "Iron Plus：￥12/月，120G/月（年付￥125）", "不限时流量Small：￥60，永久 400G 流量"],
-    "discount": "新用户优惠码： New2025（九五折，季付、半年付、年付可用，不限时不可用）",
-    "url": "https://jump.riolu.work/register?aff=UNlKm79n"
     
   },
   {

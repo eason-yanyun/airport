@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>支持ChatGPT的机场推荐</title>
   <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
   <link rel="icon" sizes="any" mask="" href="favicon.png">
@@ -49,8 +50,6 @@
               <th>协议</th>
               <th>月费</th>
               <th>流量</th>
-              <th>ChatGPT</th>
-              <th>流媒体</th>
               <th>年付折扣</th>
               <th>访问</th>
             </tr>
@@ -62,8 +61,6 @@
                 <td>${d.protocols.join(', ')}</td>
                 <td>${d.price}</td>
                 <td>${d.traffic}</td>
-                <td>${d.chatgpt ? '✅' : '❌'}</td>
-                <td>${d.streaming || '-'}</td>
                 <td>${d.annual_discount || '-'}</td>
                 <td><a href="${d.url}" target="_blank">官网</a></td>
               </tr>`).join('')}
@@ -77,7 +74,7 @@
           const section = document.createElement('section');
           section.className = 'card';
           section.innerHTML = `
-            <h3>${d.name} <span style="color:#f1c40f; font-weight:bold; font-size:2rem;">${d.star || ''}</span></h3>
+            <h3><a href="${d.url}" target="_blank" style="color:#7ed6df; text-decoration: none;">${d.name}</a> <span style="color:#f1c40f; font-weight:bold; font-size:2rem;">${d.star || ''}</span></h3>
             <div class="tagline">${d.tags || d.protocols.join(', ')}</div>
             <p>${d.description || ''}</p>
             <div class="price">
@@ -136,7 +133,7 @@
       border-radius: 10px;
       backdrop-filter: blur(12px);
       box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-      padding: 2rem;
+      padding: 1.2rem;
       margin-bottom: 2rem;
       color: #e5e5e5;
     }
@@ -147,6 +144,9 @@
       font-weight: 600;
       margin-top: 0;
       margin-bottom: 0.5rem;
+    }
+    .card h3 a:hover {
+      text-decoration: underline;
     }
 
     .tagline {
@@ -275,6 +275,48 @@
     body[data-theme='light'] thead {
       background-color: #e0f2f1;
     }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+        font-size: 0.95rem;
+      }
+
+      h2 {
+        font-size: 2rem;
+      }
+
+      .card {
+        padding: 1.2rem;
+      }
+
+      .link-btn {
+        padding: 0.8rem 1.4rem;
+        font-size: 1rem;
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin: 1.2rem 0 0;
+        box-sizing: border-box;
+      }
+
+      table {
+        font-size: 0.85rem;
+      }
+
+      th, td {
+        padding: 0.5rem;
+      }
+
+      #airport-table-container {
+        display: none;
+      }
+
+      #theme-toggle-btn {
+        min-height: 44px;
+        padding: 0.6rem 1.2rem;
+      }
+    }
   </style>
 </head>
 <body data-theme="dark">
@@ -293,7 +335,7 @@
   <blockquote>最近整理了一批高速稳定、价格亲民、完美支持 ChatGPT 和流媒体解锁的优质机场，适合日常科学上网、远程办公与内容解锁需求，欢迎参考体验 🎁</blockquote>
 
   <div id="airport-card-container"></div>
-  <div id="airport-table-container" style="overflow-x:auto; margin-bottom:2rem;"></div>
+  <div id="airport-table-container" style="overflow-x:auto; margin-bottom:2rem; max-width:100vw;"></div>
   <blockquote>
     综合来看，<strong class="highlight">若你追求极致性价比、用量适中</strong>，那 Bigme 大米加速的超小套餐无疑是“神中神”——每月仅 4.75 元，就能轻松畅享全球网络，虽流量仅 45G，但足以满足日常 ChatGPT 与轻量访问所需。
   </blockquote>
