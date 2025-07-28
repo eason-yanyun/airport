@@ -36,13 +36,13 @@
     async function loadAirportTable() {
       try {
         const res = await fetch('./airports.json');
-        const data = await res.json();
+        const { airports = [] } = await res.json(); // 使用解构赋值，更简洁
 
         // 渲染表格
         const table = document.createElement('table');
         table.style.width = '100%';
         table.style.borderCollapse = 'collapse';
-        const filtered = data.filter(d => d.parallel === true);
+        const filtered = airports.filter(d => d.parallel === true);
         table.innerHTML = `
           <thead>
             <tr>
@@ -70,7 +70,7 @@
 
         // 渲染卡片
         const container = document.getElementById('airport-card-container');
-        data.forEach(d => {
+        airports.forEach(d => {
           const section = document.createElement('section');
           section.className = 'card';
           section.innerHTML = `
