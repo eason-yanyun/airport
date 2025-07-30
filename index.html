@@ -177,17 +177,14 @@
       }
     }
 
-    // 初始化主题
-    window.onload = function () {
+    // 初始化主题，使用DOMContentLoaded事件
+    document.addEventListener('DOMContentLoaded', function () {
       const savedTheme = localStorage.getItem('theme') || 'dark';
       document.body.setAttribute('data-theme', savedTheme);
       setThemeIcon(savedTheme);
-      setTimeout(()=>{
-        loadAirportTable();
-      }); // 延时加载表格，确保样式先加载
-      
-      
-    };
+      console.log("🚀 正在加载机场列表...");
+      loadAirportTable();
+    });
   </script>
   <style>
     body {
