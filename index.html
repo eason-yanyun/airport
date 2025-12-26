@@ -45,21 +45,25 @@
     "annual_discount": "7折",
     "discount": "🎉 年费7折优惠代码：lanfan 请购买时验证使用。在新疆省无法使用！请勿购买",
     "url": "https://lanfanz.cc/auth/register?code=E1I7",
-    "parallel": true
+    "parallel": true,
+    "idx": 6,
+    "hidden": 0
   },
   {
     "name": "Riolu 精灵学院",
     "star": "★★★★☆",
     "description": "2023 年开业，支持直连+中转，多协议自选，客户端定制化体验。",
-    "tags": "SS / Vless / Trojan 多协议，小白友好",
-    "meal": ["Iron：￥6/月，30G/月（季付￥15）", "Iron Plus：￥12/月，120G/月（年付￥125）", "不限时流量Small：￥60，永久 400G 流量"],
-    "discount": "新用户优惠码： New2025（九五折，季付、半年付、年付可用，不限时不可用）",
+    "tags": "SS / VLESS / Trojan 多协议，小白友好",
+    "meal": ["Iron：￥8/月，30G/月（季付￥20）", "Silver：￥15/月，120G/月（年付￥155）", "不限时流量Small：￥75，永久 450G 流量"],
+    "discount": "海外/香港/澳门/新疆地区用户请勿购买",
     "url": "https://jump.riolu.work/register?aff=UNlKm79n",
     "protocols": ["SS", "Trojan", "Hysteria 2"],
-    "price": "￥6/月起",
+    "price": "￥8/月起",
     "traffic": "30G/月起",
     "annual_discount": "95折",
-    "parallel": true
+    "parallel": true,
+    "idx": 1,
+    "hidden": 0
     
   },
   {
@@ -70,8 +74,10 @@
     "protocols": ["Shadowsocks"],
     "price": "￥9.9/月",
     "traffic": "50G/月",
-    "meal": ["入门套餐：￥8/月，50G/月", "轻量套餐：￥15/月，100G/月"],
-    "url": "https://www.avatargpt.xyz/register?aff=9D4SamHzdl"
+    "meal": ["入门套餐：￥8/月，50G/月", "轻量套餐：￥15/月，150G/月"],
+    "url": "https://www.avatargpt.xyz/register?aff=9D4SamHzdl",
+    "idx": 4,
+    "hidden": 0
     
   },
   {
@@ -87,21 +93,24 @@
     "annual_discount": "7折",
     "discount": "🎁 五一优惠：全套餐 8 折（除开心果），结账输入优惠码：51",
     "discount_expire": true,
-    "url": "https://www.nutbit.net/#/register?code=ITvJagqb"
-    
+    "url": "https://www.nutbit.net/#/register?code=ITvJagqb",
+    "idx": 3,
+    "hidden": 0
   },
   {
     "name": "Bigme 大米加速",
     "star": "★★★★★",
     "description": "2023 年开业，主打性价比，支持 Netflix、Disney+、TikTok 和 ChatGPT。不限时长按量付费，全节点公网中转。",
     "tags": "SS / Trojan / Hysteria 2 多协议，流媒体解锁好",
-    "meal": ["超小：￥6/月，45G/月（年付￥57）", "中：￥10/季度，120G/月（年付￥96）", "不限时流量Small：￥55，永久 400G 流量"],
+    "meal": ["超小：￥6/月，45G/月（年付￥57）", "中：￥10/季度，120G/月（年付￥96）", "不限时流量Small：￥60，永久 400G 流量"],
     "protocols": ["Trojan", "Hysteria 2", "Anytls"],
     "price": "￥6/月起",
     "traffic": "45G/月起",
     "annual_discount": "8折",
     "url": "https://1s.bigmeok.me/user#/register?code=hrBKYct6",
-    "parallel": true
+    "parallel": true,
+    "idx": 2,
+    "hidden": 0
   },
   {
     "name": "FATCAT 肥猫云机场",
@@ -112,9 +121,11 @@
     "price": "￥9.9/月",
     "traffic": "50G/月",
     "meal": ["肥猫小包：￥72/年，60G/月（爆款限时热销）", "基础版：￥20/月，200G/月（3年付享6折）"],
-    "discount": "🎉 51 活动至 5.14：全场 8 折，优惠码：happy51",
-    "discount_expire": true,
-    "url": "https://inv02.fatcatcloud.cc/register?aff=wzxvsdIy"
+    "discount": "🎉 活动至 1.20：月付/季度/半年 ：85折优惠，优惠码：hello202685, 年付/年付以上：8折优惠，优惠码：hello202680",
+    "discount_expire": false,
+    "url": "https://inv02.fatcatcloud.cc/register?aff=wzxvsdIy",
+    "idx": 6,
+    "hidden": 0,
     
   }
 ];
@@ -125,7 +136,10 @@
         const table = document.createElement('table');
         table.style.width = '100%';
         table.style.borderCollapse = 'collapse';
-        const filtered = airports.filter(d => d.parallel === true);
+        const filtered = airports
+          .filter(d => d.hidden !== 1)              // 过滤隐藏项
+          .sort((a, b) => (a.idx ?? 999) - (b.idx ?? 999)) // 按 idx 排序，缺省放后面
+          .filter(d => d.parallel === true);
         table.innerHTML = `
           <thead>
             <tr>
@@ -151,27 +165,38 @@
         `;
         document.getElementById('airport-table-container').appendChild(table);
 
-        // 渲染卡片
+        // 渲染卡片（hidden=1 不展示，按 idx 排序）
         const container = document.getElementById('airport-card-container');
-        airports.forEach(d => {
-          const section = document.createElement('section');
-          section.className = 'card';
-          section.innerHTML = `
-            <h3><a href="${d.url}" target="_blank" style="color:#7ed6df; text-decoration: none;">${d.name}</a> <span style="color:#f1c40f; font-weight:bold; font-size:2rem;">${d.star || ''}</span></h3>
-            <div class="tagline">${d.tags || d.protocols.join(', ')}</div>
-            <p>${d.description || ''}</p>
-            <div class="price">
-              ${(Array.isArray(d.meal) ? d.meal : [d.meal]).map(m => `<span>${m}</span>`).join('')}
-            </div>
-            ${
-              d.discount_expire
-                ? `<p class="note"><s>${d.discount}</s></p>`
-                : (d.discount ? `<p class="note">${d.discount}</p>` : '')
-            }
-            <a href="${d.url}" class="link-btn" target="_blank">访问官网</a>
-          `;
-          container.appendChild(section);
-        });
+
+        airports
+          .filter(d => d.hidden !== 1)              // 过滤隐藏项
+          .sort((a, b) => (a.idx ?? 999) - (b.idx ?? 999)) // 按 idx 排序，缺省放后面
+          .forEach(d => {
+            const section = document.createElement('section');
+            section.className = 'card';
+            section.innerHTML = `
+              <h3>
+                <a href="${d.url}" target="_blank" style="color:#7ed6df; text-decoration: none;">
+                  ${d.name}
+                </a>
+                <span style="color:#f1c40f; font-weight:bold; font-size:2rem;">
+                  ${d.star || ''}
+                </span>
+              </h3>
+              <div class="tagline">${d.tags || d.protocols.join(', ')}</div>
+              <p>${d.description || ''}</p>
+              <div class="price">
+                ${(Array.isArray(d.meal) ? d.meal : [d.meal]).map(m => `<span>${m}</span>`).join('')}
+              </div>
+              ${
+                d.discount_expire
+                  ? `<p class="note"><s>${d.discount}</s></p>`
+                  : (d.discount ? `<p class="note">${d.discount}</p>` : '')
+              }
+              <a href="${d.url}" class="link-btn" target="_blank">访问官网</a>
+            `;
+            container.appendChild(section);
+          });
       } catch (err) {
         console.error("加载机场信息失败：", err);
       }
@@ -185,6 +210,221 @@
       console.log("🚀 正在加载机场列表...");
       loadAirportTable();
     });
+
+// ❄️ Snowfall generator
+function createSnowflake() {
+  const snowflake = document.createElement("div");
+  snowflake.className = "snowflake";
+  snowflake.textContent = "❄";
+
+  const size = Math.random() * 10 + 10; // 10px ~ 20px
+  snowflake.style.fontSize = size + "px";
+  snowflake.style.left = Math.random() * window.innerWidth + "px";
+
+  // 下落与左右摆动明显放慢
+  const fallDuration = Math.random() * 8 + 10; // 10s ~ 18s
+  const shakeDuration = Math.random() * 6 + 6; // 6s ~ 12s
+  snowflake.style.animationDuration = `${fallDuration}s, ${shakeDuration}s`;
+
+  document.body.appendChild(snowflake);
+
+  setTimeout(() => {
+    snowflake.remove();
+  }, fallDuration * 1000);
+}
+
+// 🎆 New Year confetti rain (enhanced)
+function createConfetti(confettiConfig) {
+  const dot = document.createElement("div");
+  dot.className = "confetti";
+
+  const size = Math.random() * 6 + 5; // 5px ~ 11px
+  dot.style.width = size + "px";
+  dot.style.height = size + "px";
+  dot.style.left = Math.random() * window.innerWidth + "px";
+
+  // 使用当前阶段的颜色池
+  const colors = confettiConfig.colors;
+  dot.style.backgroundColor =
+    colors[Math.floor(Math.random() * colors.length)];
+
+  const fallDuration = Math.random() * 4 + 7; // 7s ~ 11s
+  dot.style.animationDuration = fallDuration + "s";
+
+  document.body.appendChild(dot);
+
+  setTimeout(() => {
+    dot.remove();
+  }, fallDuration * 1000);
+}
+
+
+// 🎇 Firework: launch from bottom and explode in air
+function launchFirework() {
+  const startX = Math.random() * window.innerWidth;
+  const startY = window.innerHeight + 20;
+  const peakY = window.innerHeight * (0.25 + Math.random() * 0.25);
+
+  const rocket = document.createElement("div");
+  rocket.className = "firework-rocket";
+  rocket.style.left = startX + "px";
+  rocket.style.top = startY + "px";
+
+  document.body.appendChild(rocket);
+
+  const duration = 900 + Math.random() * 400;
+
+  const driftX = (Math.random() - 0.5) * 120; // 左右偏移
+  const rotateDeg = (Math.random() - 0.5) * 10;
+
+  rocket.animate(
+    [
+      {
+        transform: "translate(0, 0) rotate(0deg)",
+        opacity: 1
+      },
+      {
+        transform: `translate(${driftX * 0.4}px, ${(peakY - startY) * 0.55}px) rotate(${rotateDeg}deg)`,
+        opacity: 1
+      },
+      {
+        transform: `translate(${driftX}px, ${peakY - startY}px) rotate(${rotateDeg}deg)`,
+        opacity: 1
+      }
+    ],
+    {
+      duration,
+      easing: "cubic-bezier(0.25, 0.6, 0.35, 1)",
+      fill: "forwards"
+    }
+  );
+
+  setTimeout(() => {
+    rocket.remove();
+    explodeFirework(startX, peakY);
+  }, duration);
+}
+
+function explodeFirework(x, y) {
+  const count = 32 + Math.floor(Math.random() * 12);
+  const colors = ["#ff3f34", "#ffd32a", "#ff9f1a", "#ffffff"];
+
+  for (let i = 0; i < count; i++) {
+    const spark = document.createElement("div");
+    spark.className = "firework-spark";
+    spark.style.left = x + "px";
+    spark.style.top = y + "px";
+
+    const size = Math.random() * 3 + 2;
+    spark.style.width = size + "px";
+    spark.style.height = size + "px";
+    spark.style.backgroundColor =
+      colors[Math.floor(Math.random() * colors.length)];
+
+    const angle = Math.random() * Math.PI * 2;
+    const distance = Math.random() * 150 + 60;
+
+    spark.style.setProperty("--dx", Math.cos(angle) * distance + "px");
+    spark.style.setProperty("--dy", Math.sin(angle) * distance + "px");
+
+    document.body.appendChild(spark);
+    setTimeout(() => spark.remove(), 1200);
+  }
+
+  const flash = document.createElement("div");
+  flash.className = "firework-flash";
+  document.body.appendChild(flash);
+  setTimeout(() => flash.remove(), 220);
+}
+
+// 🎄 / 🎆 节日特效调度器（完整版）
+(function initFestivalEffect() {
+  // 🧪 本地调试用（上线前设为 null）
+  <!-- const DEBUG_DATE = "2026-02-28"; // 例如："2025-02-27" -->
+  const DEBUG_DATE = null;
+  const now = DEBUG_DATE ? new Date(DEBUG_DATE) : new Date();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+
+  // 设备性能判断
+  const cpuCores = navigator.hardwareConcurrency || 4;
+  const isLowPerformance = cpuCores <= 2;
+
+  /* ======================
+     🎄 圣诞小雪
+  ====================== */
+  if (month === 12 && day >= 20 && day <= 30) {
+    setInterval(createSnowflake, isLowPerformance ? 1500 : 900);
+    return;
+  }
+  /* ======================
+     🧨 放鞭炮日（限定日期）
+     ====================== */
+     const isFirecrackerDay =
+     (month === 2 && (day === 16 || day === 17)) ||
+     (month === 3 && day === 3);
+ 
+   if (isFirecrackerDay) {
+     setInterval(launchFirework, isLowPerformance ? 2600 : 1800);
+   }
+  /* ======================
+     🎆 新年彩点雨
+  ====================== */
+
+  const isNewYearPeriod =
+    (month === 12 && day === 31) ||
+    month === 1 ||
+    month === 2;
+
+  if (!isNewYearPeriod) return;
+
+  // —— 阶段 1：春节红金（假设 1.28 ~ 2.3，可自行微调）
+  const isSpringFestival =
+    (month === 1 && day >= 28) ||
+    (month === 2 && day <= 3);
+
+  // —— 阶段 2：2 月底淡出（26 / 27 / 28）
+  const isFadeOutPeriod =
+    month === 2 && day >= 26 && day <= 28;
+
+  // 🎨 配色方案
+  let colors = [
+    "#ff7675",
+    "#74b9ff",
+    "#ffeaa7",
+    "#55efc4",
+    "#fd79a8"
+  ];
+
+  if (isSpringFestival) {
+    colors = [
+      "#e84118", // 正红
+      "#fbc531", // 金
+      "#c23616", // 暗红
+      "#f5cd79"  // 香槟金
+    ];
+  }
+
+  // ⏱️ 生成频率控制
+  let interval = 700;
+
+  if (isFadeOutPeriod) {
+    // 逐日淡出
+    interval = day === 26 ? 1200 : day === 27 ? 1800 : 2600;
+  }
+
+  if (isLowPerformance) {
+    interval *= 1.8;
+  }
+
+  const confettiConfig = { colors };
+
+  setInterval(() => {
+    createConfetti(confettiConfig);
+  }, interval);
+
+  
+})();
   </script>
   <style>
     body {
@@ -207,7 +447,7 @@
       background: rgba(255, 255, 255, 0.05);
       padding: 1.2rem;
       border-left: 4px solid #f39c12;
-      font-style: italic;
+      font-style: normal;
       margin: 0 auto 2rem;
       max-width: 100%;
       color: #ffebc6;
@@ -404,6 +644,137 @@
         padding: 0.6rem 1.2rem;
       }
     }
+
+/* ❄️ Snowfall Effect */
+.snowflake {
+  position: fixed;
+  top: -10px;
+  color: #fff;
+  font-size: 1em;
+  user-select: none;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.95;
+  text-shadow: 
+    0 0 4px rgba(255,255,255,0.8),
+    0 0 8px rgba(255,255,255,0.6),
+    0 0 12px rgba(255,255,255,0.4);
+  animation-name: snow-fall, snow-shake, snow-twinkle;
+  animation-duration: linear, ease-in-out;
+  animation-iteration-count: infinite, infinite, infinite;
+}
+
+@keyframes snow-fall {
+  0% {
+    top: -10px;
+  }
+  100% {
+    top: 100vh;
+  }
+}
+
+@keyframes snow-shake {
+  0% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(40px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+@keyframes snow-twinkle {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+/* 🎆 New Year Confetti */
+.confetti {
+  position: fixed;
+  top: -10px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.9;
+  animation-name: confetti-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  box-shadow:
+    0 0 6px rgba(255,255,255,0.6),
+    0 0 12px rgba(255,215,0,0.5);
+}
+
+@keyframes confetti-fall {
+  0% {
+    top: -10px;
+    transform: translateX(0) rotate(0deg);
+  }
+  100% {
+    top: 100vh;
+    transform: translateX(60px) rotate(360deg);
+  }
+}
+
+/* 🎇 Firework rocket */
+.firework-rocket {
+  position: fixed;
+  width: 3px;
+  height: 18px;
+  background: linear-gradient(
+    to top,
+    #ff3b30,   /* 深红：引信 */
+    #ff6b6b    /* 正红：升空 */
+  );
+  box-shadow:
+    0 0 6px rgba(255, 59, 48, 0.9),
+    0 0 14px rgba(255, 107, 107, 0.8);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* 🎆 Firework sparks */
+.firework-spark {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  animation: firework-explode 1.2s ease-out forwards;
+  box-shadow:
+    0 0 6px rgba(255,255,255,0.8),
+    0 0 12px rgba(255,215,0,0.6);
+}
+
+@keyframes firework-explode {
+  from {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translate(var(--dx), var(--dy)) scale(0.6);
+    opacity: 0;
+  }
+}
+
+/* 🎇 Firework flash */
+.firework-flash {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.05);
+  z-index: 9998;
+  animation: firework-flash 0.14s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes firework-flash {
+  0% { opacity: 0; }
+  40% { opacity: 1; }
+  100% { opacity: 0; }
+}
   </style>
 </head>
 <body data-theme="dark">
@@ -419,12 +790,18 @@
   <p style="text-align:center; color:#dcdde1; font-size:1.1rem; margin-top:-0.5rem; margin-bottom:2rem;">
     🚀 高速 · 稳定 · 解锁流媒体 · 支持ChatGPT
   </p>
-  <blockquote>最近整理了一批高速稳定、价格亲民、完美支持ChatGPT和流媒体解锁的优质机场，适合日常科学上网、远程办公与内容解锁需求，欢迎参考体验 🎁</blockquote>
+  <blockquote>
+    近期系统性整理并筛选了一批在<strong>稳定性、性价比与可用性</strong>方面表现突出的机场服务，
+    整体支持 ChatGPT 与主流流媒体解锁，适用于日常科学上网、远程办公及内容访问等场景，供参考与对比。
+  </blockquote>
 
   <div id="airport-card-container"></div>
   <div id="airport-table-container" style="overflow-x:auto; margin-bottom:2rem; max-width:100vw;"></div>
   <blockquote>
-    综合来看，<strong class="highlight">若你追求极致性价比、用量适中</strong>，那 Bigme 大米加速的超小套餐无疑是“神中神”——每月仅 4.75 元，就能轻松畅享全球网络，虽流量仅 45G，但足以满足日常ChatGPT与轻量访问所需。
+    综合价格、稳定性与流量配置等因素来看，
+    <strong class="highlight">若你的使用需求以轻量访问、ChatGPT 及日常浏览为主</strong>，
+    Bigme 大米加速的超小套餐在当前同类产品中具备显著的性价比优势。
+    月均成本约 5 元（年付），虽流量配置相对克制，但对多数轻度至中度用户已足够使用。
   </blockquote>
 
 </body>
