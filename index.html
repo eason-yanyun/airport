@@ -46,6 +46,8 @@
     "traffic": "30G/月起",
     "annual_discount": "95折",
     "parallel": true,
+    "discount": "🧧 新年活动，年付套餐 8 折，优惠券码：xinnian666，活动时间 2月5日到2月20日",
+    "discount_expire": false,
     "idx": 1,
     "hidden": 0
     
@@ -60,6 +62,8 @@
     "price": "￥6/月起",
     "traffic": "45G/月起",
     "annual_discount": "8折",
+    "discount": "🧧 新年活动，年付套餐 8 折，优惠券码：xinnian666，活动时间 2月5日到2月20日",
+    "discount_expire": false,
     "url": "https://1s.bigmeok.me/user#/register?code=hrBKYct6",
     "parallel": true,
     "idx": 2,
@@ -76,8 +80,8 @@
     "chatgpt": true,
     "streaming": "一般",
     "annual_discount": "7折",
-    "discount": "🎁 五一优惠：全套餐 8 折，结账输入优惠码：51",
-    "discount_expire": true,
+    "discount": "🎁 春节活动：全套餐 8 折，专属优惠码： 2688，截至日期2月28日",
+    "discount_expire": false,
     "url": "https://forest-cn.com/register?code=eb6TFA2X",
     "idx": 3,
     "hidden": 0
@@ -107,6 +111,7 @@
     "meal": ["入门版：￥12.99/月，50G流量。","入门版：￥17.99/月，100G流量。"],
     "annual_discount": "7折",
     "discount": "🎉 年费7折优惠代码：lanfan 请购买时验证使用。在新疆省无法使用！请勿购买",
+    "discount_expire": false,
     "url": "https://lanfanz.cc/auth/register?code=E1I7",
     "parallel": true,
     "idx": 5,
@@ -121,7 +126,7 @@
     "price": "￥9.9/月",
     "traffic": "50G/月",
     "meal": ["BGP线路：￥96/年，60G/月（肥猫年付加强版）", "基础版：￥20/月，200G/月（2年付享7折，3年付享6折）"],
-    "discount": "🎉 活动至 1.20：月付/季度/半年 ：85折优惠，优惠码：hello202685, 年付/年付以上：8折优惠，优惠码：hello202680",
+    "discount": "🧧 活动至 2026年3月15号：月付、季度、半年付 使用优惠码：newyear202685 , 可以享受85折优惠。年付、2年付、3年付，使用优惠码： newyear202680 , 可以享受8折优惠。",
     "discount_expire": false,
     "url": "https://inv02.fatcatcloud.cc/register?aff=wzxvsdIy",
     "idx": 6,
@@ -340,7 +345,7 @@ function explodeFirework(x, y) {
 // 🎄 / 🎆 节日特效调度器（完整版）
 (function initFestivalEffect() {
   // 🧪 本地调试用（上线前设为 null）
-  <!-- const DEBUG_DATE = "2026-02-28"; // 例如："2025-02-27" -->
+  <!-- const DEBUG_DATE = "2027-02-28";--> // 例如："2025-02-27"  
   const DEBUG_DATE = null;
   const now = DEBUG_DATE ? new Date(DEBUG_DATE) : new Date();
   const month = now.getMonth() + 1;
@@ -349,6 +354,12 @@ function explodeFirework(x, y) {
   // 设备性能判断
   const cpuCores = navigator.hardwareConcurrency || 4;
   const isLowPerformance = cpuCores <= 2;
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const yearTitle = document.getElementById("spring-year-title");
+    yearTitle.textContent = now.getFullYear() + " 年";
+
+  });
 
   /* ======================
      🎄 圣诞小雪
@@ -375,6 +386,16 @@ function explodeFirework(x, y) {
     (month === 12 && day === 31) ||
     month === 1 ||
     month === 2;
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const greetingEl = document.getElementById("spring-festival-greeting");
+    const yearSpan = document.getElementById("spring-year-greeting");
+    if (greetingEl && yearSpan && isNewYearPeriod) {
+      yearSpan.textContent = now.getFullYear() + " 年";
+      greetingEl.style.display = "block";
+      greetingEl.classList.add("spring-breath");
+    }
+  });
 
   if (!isNewYearPeriod) return;
 
@@ -859,7 +880,12 @@ body[data-theme='light'] .summary-box {
     </button>
   </div>
 
-  <h2>2026 年可长期使用的优质机场推荐</h2>
+  <h2>
+    <span id="spring-year-title"></span>仍可放心使用的机场服务
+  </h2>
+  <p id="spring-festival-greeting" style="text-align:center; font-size:1.1rem; margin-top:0.6rem; margin-bottom:1.6rem; display:none;">
+    🧧 恭祝大家 <span id="spring-year-greeting"></span>新春顺遂，阖家安康！
+  </p>
 
 <p style="text-align:center; color:#636e72; font-size:1rem; margin-top:-0.5rem; margin-bottom:2rem; font-weight: 500;">
   ⚡️ 晚高峰稳定 · 原生 IP 节点 · 全场景 AI 解锁
