@@ -1,932 +1,1445 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>机场推荐</title>
-  <link rel="shortcut icon" href="https://eason-yanyun.github.io/airport/favicon.ico" type="image/x-icon">
-  <link rel="icon" sizes="any" mask="" href="https://eason-yanyun.github.io/airport/favicon.ico">
-  <script>
-/*************  ✨ Windsurf Command ⭐  *************/
-/**
- * Toggles the theme of the webpage between light and dark.
- * It updates the data-theme attribute of the body element,
- * stores the selected theme in localStorage, and updates
- * the theme icon accordingly.
- */
-
-/*******  b6d655d9-840d-4b95-b36d-664b27f6d1c6  *******/
-    function toggleTheme() {
-      const body = document.body;
-      const currentTheme = body.getAttribute('data-theme');
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      body.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      setThemeIcon(newTheme);
-      return;
-    }
-
-    function setThemeIcon(theme) {
-      const iconSpan = document.getElementById("theme-icon");
-      if (iconSpan) {
-        iconSpan.textContent = theme === "light" ? "🌙" : "☀️";
-      }
-    }
-    const airports = [
-  {
-    "name": "Riolu 精灵学院",
-    "star": "★★★★☆",
-    "description": "2023 年开业，支持直连+中转，多协议自选，客户端定制化体验。",
-    "tags": "SS / VLESS / Trojan 多协议，小白友好",
-    "meal": ["Iron：￥8/月，30G/月（季付￥20）", "Silver：￥15/月，120G/月（年付￥155）", "不限时流量Small：￥75，永久 450G 流量"],
-    "discount": "海外/香港/澳门/新疆地区用户请勿购买",
-    "url": "https://jump.riolu.work/register?aff=UNlKm79n",
-    "protocols": ["SS", "Trojan", "Hysteria 2"],
-    "price": "￥8/月起",
-    "traffic": "30G/月起",
-    "annual_discount": "95折",
-    "parallel": true,
-    "discount": "🧧 新用户优惠码：New2025，九五折优惠，季付 半年付 年付可用",
-    "discount_expire": false,
-    "idx": 1,
-    "hidden": 0
-    
-  },
-  {
-    "name": "Bigme 大米加速",
-    "star": "★★★★★",
-    "description": "2023 年开业，主打性价比，支持 Netflix、Disney+、TikTok 和 ChatGPT。不限时长按量付费，全节点公网中转。",
-    "tags": "SS / Trojan / Hysteria 2 多协议，流媒体解锁好",
-    "meal": ["超小：￥6/月，45G/月（年付￥57）", "中：￥10/季度，120G/月（年付￥96）", "不限时流量Small：￥60，永久 400G 流量"],
-    "protocols": ["Trojan", "Hysteria 2", "Anytls"],
-    "price": "￥6/月起",
-    "traffic": "45G/月起",
-    "annual_discount": "8折",
-    "discount": "🧧 新年活动，年付套餐 8 折，优惠券码：xinnian666，活动时间 2月5日到2月20日",
-    "discount_expire": false,
-    "url": "https://1s.bigmeok.me/user#/register?code=hrBKYct6",
-    "parallel": true,
-    "idx": 2,
-    "hidden": 0
-  },
-  {
-    "name": "Forest机场",
-    "star": "★★★★☆",
-    "description": "金融级别跨境线路，全球多国家使用支持流媒体解锁。支持 Netflix、Disney+、TikTok 和 ChatGPT。",
-    "tags": "SS 协议，支持多平台",
-    "protocols": ["SSR", "V2ray"],
-
-    "meal": ["轻量：￥29.88/月，200G/月", "高级：￥68.88/月，500G/月"],
-    "chatgpt": true,
-    "streaming": "一般",
-    "annual_discount": "7折",
-    "discount": "🎁 五一限时，全场8折，专属优惠码：5188，活动截止5月5日",
-    "discount_expire": false,
-    "url": "https://forest-cn.com/register?code=eb6TFA2X",
-    "idx": 3,
-    "hidden": 0
-  },
-  {
-    "name": "阿拉丁机场",
-    "star": "★★★★★",
-    "description": "2024 年开业，支持多地区节点和个性化定制。Netflix、Disney+、ChatGPT 支持优良。",
-    "tags": "SS 协议，奈飞免登录，中转性价比高",
-    "protocols": ["Shadowsocks"],
-    "price": "￥8/月",
-    "traffic": "50G/月",
-    "meal": ["入门套餐：￥8/月，50G/月", "轻量套餐：￥15/月，150G/月"],
-    "url": "https://www.avatargpt.xyz/register?aff=9D4SamHzdl",
-    "idx": 4,
-    "hidden": 0
-    
-  },
-  {
-    "name": "蓝帆云机场",
-    "star": "★★★★★",
-    "description": "蓝帆云是一家 2024 年新开的机场，支持 ShadowsocksR 和 Vmess 多种协议。蓝帆云解锁能力一般，节点数量很多，覆盖国内常用地区，没有冷门地区节点。",
-    "tags": "BGP中转 + IPLC 专线节点 SSR / V2ray 机场",
-    "protocols": ["Hysteria 2", "SSR", "V2ray"],
-    "price": "￥12.99/月起",
-    "traffic": "50G/月起",
-    "meal": ["入门版：￥12.99/月，50G流量。","入门版：￥17.99/月，100G流量。"],
-    "annual_discount": "7折",
-    "discount": "🎉 年费7折优惠代码：lanfan 请购买时验证使用。在新疆省无法使用！请勿购买",
-    "discount_expire": false,
-    "url": "https://lanfanz.cc/auth/register?code=E1I7",
-    "parallel": true,
-    "idx": 5,
-    "hidden": 0
-  },
-  {
-    "name": "FATCAT 肥猫云机场",
-    "star": "★★★★☆",
-    "description": "2023 年成立，IEPL 专线节点，支持多流媒体和 ChatGPT，年付套餐优惠大。",
-    "tags": "Trojan 协议，专线稳定，团队海外",
-    "protocols": ["Shadowsocks"],
-    "price": "￥9.9/月",
-    "traffic": "50G/月",
-    "meal": ["BGP线路：￥96/年，60G/月（肥猫年付加强版）", "基础版：￥20/月，200G/月（2年付享7折，3年付享6折）"],
-    "discount": "🧧 活动至 2026年3月15号：月付、季度、半年付 使用优惠码：newyear202685 , 可以享受85折优惠。年付、2年付、3年付，使用优惠码： newyear202680 , 可以享受8折优惠。",
-    "discount_expire": false,
-    "url": "https://inv02.fatcatcloud.cc/register?aff=wzxvsdIy",
-    "idx": 6,
-    "hidden": 0,
-    
-  }
-];
-    async function loadAirportTable() {
-      try {
-
-        // 渲染表格
-        const table = document.createElement('table');
-        table.style.width = '100%';
-        table.style.borderCollapse = 'collapse';
-        const filtered = airports
-          .filter(d => d.hidden !== 1)              // 过滤隐藏项
-          .sort((a, b) => (a.idx ?? 999) - (b.idx ?? 999)) // 按 idx 排序，缺省放后面
-          .filter(d => d.parallel === true);
-        table.innerHTML = `
-          <thead>
-            <tr>
-              <th>名称</th>
-              <th>协议</th>
-              <th>月费</th>
-              <th>流量</th>
-              <th>年付折扣</th>
-              <th>访问</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${filtered.map(d => `
-              <tr>
-                <td>${d.name}</td>
-                <td>${d.protocols.join(', ')}</td>
-                <td>${d.price}</td>
-                <td>${d.traffic}</td>
-                <td>${d.annual_discount || '-'}</td>
-                <td><a href="${d.url}" target="_blank">官网</a></td>
-              </tr>`).join('')}
-          </tbody>
-        `;
-        document.getElementById('airport-table-container').appendChild(table);
-
-        // 渲染卡片（hidden=1 不展示，按 idx 排序）
-        const container = document.getElementById('airport-card-container');
-
-        airports
-          .filter(d => d.hidden !== 1)              // 过滤隐藏项
-          .sort((a, b) => (a.idx ?? 999) - (b.idx ?? 999)) // 按 idx 排序，缺省放后面
-          .forEach(d => {
-            const section = document.createElement('section');
-            section.className = 'card';
-            section.innerHTML = `
-              <h3>
-                <a href="${d.url}" target="_blank" style="color:#7ed6df; text-decoration: none;">
-                  ${d.name}
-                </a>
-                <span style="color:#f1c40f; font-weight:bold; font-size:2rem;">
-                  ${d.star || ''}
-                </span>
-              </h3>
-              <div class="tagline">${d.tags || d.protocols.join(', ')}</div>
-              <p>${d.description || ''}</p>
-              <div class="price">
-                ${(Array.isArray(d.meal) ? d.meal : [d.meal]).map(m => `<span>${m}</span>`).join('')}
-              </div>
-              ${
-                d.discount_expire
-                  ? `<p class="note"><s>${d.discount}</s></p>`
-                  : (d.discount ? `<p class="note">${d.discount}</p>` : '')
-              }
-              <a href="${d.url}" class="link-btn" target="_blank">访问官网</a>
-            `;
-            container.appendChild(section);
-          });
-      } catch (err) {
-        console.error("加载机场信息失败：", err);
-      }
-    }
-
-    // 初始化主题，使用DOMContentLoaded事件
-    document.addEventListener('DOMContentLoaded', function () {
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      document.body.setAttribute('data-theme', savedTheme);
-      setThemeIcon(savedTheme);
-      console.log("🚀 正在加载机场列表...");
-      loadAirportTable();
-    });
-
-// ❄️ Snowfall generator
-function createSnowflake() {
-  const snowflake = document.createElement("div");
-  snowflake.className = "snowflake";
-  snowflake.textContent = "❄";
-
-  const size = Math.random() * 10 + 10; // 10px ~ 20px
-  snowflake.style.fontSize = size + "px";
-  snowflake.style.left = Math.random() * window.innerWidth + "px";
-
-  // 下落与左右摆动明显放慢
-  const fallDuration = Math.random() * 8 + 10; // 10s ~ 18s
-  const shakeDuration = Math.random() * 6 + 6; // 6s ~ 12s
-  snowflake.style.animationDuration = `${fallDuration}s, ${shakeDuration}s`;
-
-  document.body.appendChild(snowflake);
-
-  setTimeout(() => {
-    snowflake.remove();
-  }, fallDuration * 1000);
-}
-
-// 🎆 New Year confetti rain (enhanced)
-function createConfetti(confettiConfig) {
-  const dot = document.createElement("div");
-  dot.className = "confetti";
-
-  const size = Math.random() * 6 + 5; // 5px ~ 11px
-  dot.style.width = size + "px";
-  dot.style.height = size + "px";
-  dot.style.left = Math.random() * window.innerWidth + "px";
-
-  // 使用当前阶段的颜色池
-  const colors = confettiConfig.colors;
-  dot.style.backgroundColor =
-    colors[Math.floor(Math.random() * colors.length)];
-
-  const fallDuration = Math.random() * 4 + 7; // 7s ~ 11s
-  dot.style.animationDuration = fallDuration + "s";
-
-  document.body.appendChild(dot);
-
-  setTimeout(() => {
-    dot.remove();
-  }, fallDuration * 1000);
-}
-
-
-// 🎇 Firework: launch from bottom and explode in air
-function launchFirework() {
-  const startX = Math.random() * window.innerWidth;
-  const startY = window.innerHeight + 20;
-  const peakY = window.innerHeight * (0.25 + Math.random() * 0.25);
-
-  const rocket = document.createElement("div");
-  rocket.className = "firework-rocket";
-  rocket.style.left = startX + "px";
-  rocket.style.top = startY + "px";
-
-  document.body.appendChild(rocket);
-
-  const duration = 900 + Math.random() * 400;
-
-  const driftX = (Math.random() - 0.5) * 120; // 左右偏移
-  const rotateDeg = (Math.random() - 0.5) * 10;
-
-  rocket.animate(
-    [
-      {
-        transform: "translate(0, 0) rotate(0deg)",
-        opacity: 1
-      },
-      {
-        transform: `translate(${driftX * 0.4}px, ${(peakY - startY) * 0.55}px) rotate(${rotateDeg}deg)`,
-        opacity: 1
-      },
-      {
-        transform: `translate(${driftX}px, ${peakY - startY}px) rotate(${rotateDeg}deg)`,
-        opacity: 1
-      }
-    ],
-    {
-      duration,
-      easing: "cubic-bezier(0.25, 0.6, 0.35, 1)",
-      fill: "forwards"
-    }
-  );
-
-  setTimeout(() => {
-    rocket.remove();
-    explodeFirework(startX, peakY);
-  }, duration);
-}
-
-function explodeFirework(x, y) {
-  const count = 32 + Math.floor(Math.random() * 12);
-  const colors = ["#ff3f34", "#ffd32a", "#ff9f1a", "#ffffff"];
-
-  for (let i = 0; i < count; i++) {
-    const spark = document.createElement("div");
-    spark.className = "firework-spark";
-    spark.style.left = x + "px";
-    spark.style.top = y + "px";
-
-    const size = Math.random() * 3 + 2;
-    spark.style.width = size + "px";
-    spark.style.height = size + "px";
-    spark.style.backgroundColor =
-      colors[Math.floor(Math.random() * colors.length)];
-
-    const angle = Math.random() * Math.PI * 2;
-    const distance = Math.random() * 150 + 60;
-
-    spark.style.setProperty("--dx", Math.cos(angle) * distance + "px");
-    spark.style.setProperty("--dy", Math.sin(angle) * distance + "px");
-
-    document.body.appendChild(spark);
-    setTimeout(() => spark.remove(), 1200);
-  }
-
-  const flash = document.createElement("div");
-  flash.className = "firework-flash";
-  document.body.appendChild(flash);
-  setTimeout(() => flash.remove(), 220);
-}
-
-// 🎄 / 🎆 节日特效调度器（完整版）
-(function initFestivalEffect() {
-  // 🧪 本地调试用（上线前设为 null）
-  <!-- const DEBUG_DATE = "2027-02-28";--> // 例如："2025-02-27"  
-  const DEBUG_DATE = null;
-  const now = DEBUG_DATE ? new Date(DEBUG_DATE) : new Date();
-  const month = now.getMonth() + 1;
-  const day = now.getDate();
-
-  // 设备性能判断
-  const cpuCores = navigator.hardwareConcurrency || 4;
-  const isLowPerformance = cpuCores <= 2;
-
-  document.addEventListener('DOMContentLoaded', function () {
-    const yearTitle = document.getElementById("spring-year-title");
-    yearTitle.textContent = now.getFullYear() + " 年";
-
-  });
-
-  /* ======================
-     🎄 圣诞小雪
-  ====================== */
-  if (month === 12 && day >= 20 && day <= 30) {
-    setInterval(createSnowflake, isLowPerformance ? 1500 : 900);
-    return;
-  }
-  /* ======================
-     🧨 放鞭炮日（限定日期）
-     ====================== */
-     const isFirecrackerDay =
-     (month === 2 && (day === 16 || day === 17)) ||
-     (month === 3 && day === 3);
- 
-   if (isFirecrackerDay) {
-     setInterval(launchFirework, isLowPerformance ? 2600 : 1800);
-   }
-  /* ======================
-     🎆 新年彩点雨
-  ====================== */
-
-  const isNewYearPeriod =
-    (month === 12 && day === 31) ||
-    month === 1 ||
-    month === 2;
-
-  document.addEventListener('DOMContentLoaded', function () {
-    const greetingEl = document.getElementById("spring-festival-greeting");
-    const yearSpan = document.getElementById("spring-year-greeting");
-    if (greetingEl && yearSpan && isNewYearPeriod) {
-      yearSpan.textContent = now.getFullYear() + " 年";
-      greetingEl.style.display = "block";
-      greetingEl.classList.add("spring-breath");
-    }
-  });
-
-  if (!isNewYearPeriod) return;
-
-  // —— 阶段 1：春节红金（假设 1.28 ~ 2.3，可自行微调）
-  const isSpringFestival =
-    (month === 1 && day >= 28) ||
-    (month === 2 && day <= 3);
-
-  // —— 阶段 2：2 月底淡出（26 / 27 / 28）
-  const isFadeOutPeriod =
-    month === 2 && day >= 26 && day <= 28;
-
-  // 🎨 配色方案
-  let colors = [
-    "#ff7675",
-    "#74b9ff",
-    "#ffeaa7",
-    "#55efc4",
-    "#fd79a8"
-  ];
-
-  if (isSpringFestival) {
-    colors = [
-      "#e84118", // 正红
-      "#fbc531", // 金
-      "#c23616", // 暗红
-      "#f5cd79"  // 香槟金
-    ];
-  }
-
-  // ⏱️ 生成频率控制
-  let interval = 700;
-
-  if (isFadeOutPeriod) {
-    // 逐日淡出
-    interval = day === 26 ? 1200 : day === 27 ? 1800 : 2600;
-  }
-
-  if (isLowPerformance) {
-    interval *= 1.8;
-  }
-
-  const confettiConfig = { colors };
-
-  setInterval(() => {
-    createConfetti(confettiConfig);
-  }, interval);
-
-  
-})();
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>机场推荐 — 精选优质网络加速服务</title>
+  <meta name="description" content="从线路质量、性价比与长期稳定性三个维度，实测筛选主流机场，专注专线/中转节点，为开发者与重度用户提供可靠参考。">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" sizes="any" href="favicon.png">
   <style>
+    /* ================================================================
+       RADIANT CYBER 2.0 — DARK THEME (default)
+       ================================================================ */
+    :root {
+      --bg-primary: #05050d;
+      --bg-secondary: #0c0c17;
+      --bg-card: rgba(0, 0, 0, 0.55);
+      --bg-card-hover: rgba(0, 0, 0, 0.78);
+      --bg-card-solid: #0c0c17;
+      --bg-nav: rgba(5, 5, 13, 0.72);
+      --border-subtle: rgba(255, 255, 255, 0.04);
+      --border-card: rgba(255, 255, 255, 0.06);
+      --border-glow: rgba(147, 51, 234, 0.18);
+      --border-input: rgba(255, 255, 255, 0.06);
+
+      --text-primary: #f3f4f6;
+      --text-secondary: #9ca3af;
+      --text-tertiary: #6b7280;
+      --text-muted: #4b5563;
+
+      --accent: #9333ea;
+      --accent-light: #c084fc;
+      --accent-dim: #2e1065;
+      --accent-teal: #06b6d4;
+      --accent-teal-light: #38bdf8;
+      --accent-teal-dim: #083344;
+      --accent-green: #34d399;
+      --accent-red: #f87171;
+
+      --gradient-hero: linear-gradient(135deg, #0c0c17 0%, #12092b 40%, #0a1721 70%, #0c0c17 100%);
+      --gradient-btn: linear-gradient(135deg, #9333ea 0%, #7c3aed 100%);
+      --gradient-btn-hover: linear-gradient(135deg, #c084fc 0%, #9333ea 100%);
+      --gradient-card: linear-gradient(135deg, rgba(147, 51, 234, 0.04) 0%, rgba(6, 182, 212, 0.02) 100%);
+      --gradient-title: linear-gradient(135deg, #c084fc 0%, #9333ea 50%, #06b6d4 100%);
+
+      --pricing-bg: rgba(255, 255, 255, 0.03);
+      --table-th-bg: rgba(255, 255, 255, 0.025);
+      --table-hover: rgba(255, 255, 255, 0.02);
+      --discount-bg: rgba(147, 51, 234, 0.06);
+      --discount-border: rgba(147, 51, 234, 0.1);
+      --badge-protocol-bg: rgba(6, 182, 212, 0.08);
+      --badge-protocol-border: rgba(6, 182, 212, 0.14);
+      --badge-discount-bg: rgba(147, 51, 234, 0.08);
+      --badge-discount-border: rgba(147, 51, 234, 0.15);
+      --badge-hero-bg: rgba(147, 51, 234, 0.06);
+      --badge-hero-border: rgba(147, 51, 234, 0.2);
+      --em-bg: rgba(255, 255, 255, 0.04);
+      --faq-bg: rgba(255, 255, 255, 0.015);
+      --faq-hover: rgba(255, 255, 255, 0.035);
+      --filter-bg: rgba(12, 12, 23, 0.55);
+      --chip-active-bg: rgba(147, 51, 234, 0.12);
+      --chip-active-border: rgba(147, 51, 234, 0.28);
+      --chip-inactive-bg: rgba(255, 255, 255, 0.025);
+      --chip-inactive-border: rgba(255, 255, 255, 0.05);
+      --empty-state: rgba(255, 255, 255, 0.03);
+
+      --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 20px;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+      --shadow-glow: 0 0 40px rgba(147, 51, 234, 0.06);
+
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+      --font-mono: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', monospace;
+
+      --transition-fast: 0.15s ease;
+      --transition-base: 0.3s ease;
+      --transition-slow: 0.5s ease;
+      --mesh-opacity: 0.08;
+    }
+
+    /* ================================================================
+       RADIANT CYBER 2.0 — LIGHT THEME
+       ================================================================ */
+    [data-theme="light"] {
+      --bg-primary: #f5f7fb;
+      --bg-secondary: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.74);
+      --bg-card-hover: rgba(255, 255, 255, 0.96);
+      --bg-card-solid: #ffffff;
+      --bg-nav: rgba(245, 247, 251, 0.78);
+      --border-subtle: rgba(0, 0, 0, 0.05);
+      --border-card: rgba(0, 0, 0, 0.06);
+      --border-glow: rgba(124, 58, 237, 0.22);
+      --border-input: rgba(0, 0, 0, 0.07);
+
+      --text-primary: #111827;
+      --text-secondary: #4b5563;
+      --text-tertiary: #9ca3af;
+      --text-muted: #d1d5db;
+
+      --accent: #7c3aed;
+      --accent-light: #6d28d9;
+      --accent-dim: #ddd6fe;
+      --accent-teal: #0891b2;
+      --accent-teal-light: #06b6d4;
+      --accent-teal-dim: #cffafe;
+      --accent-green: #059669;
+      --accent-red: #dc2626;
+
+      --gradient-btn: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+      --gradient-btn-hover: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+      --gradient-card: linear-gradient(135deg, rgba(124, 58, 237, 0.03) 0%, rgba(8, 145, 178, 0.015) 100%);
+      --gradient-title: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #0891b2 100%);
+
+      --pricing-bg: rgba(0, 0, 0, 0.02);
+      --table-th-bg: rgba(0, 0, 0, 0.02);
+      --table-hover: rgba(0, 0, 0, 0.01);
+      --discount-bg: rgba(124, 58, 237, 0.05);
+      --discount-border: rgba(124, 58, 237, 0.12);
+      --badge-protocol-bg: rgba(8, 145, 178, 0.07);
+      --badge-protocol-border: rgba(8, 145, 178, 0.14);
+      --badge-discount-bg: rgba(124, 58, 237, 0.08);
+      --badge-discount-border: rgba(124, 58, 237, 0.2);
+      --badge-hero-bg: rgba(124, 58, 237, 0.07);
+      --badge-hero-border: rgba(124, 58, 237, 0.25);
+      --em-bg: rgba(0, 0, 0, 0.03);
+      --faq-bg: rgba(0, 0, 0, 0.012);
+      --faq-hover: rgba(0, 0, 0, 0.03);
+      --filter-bg: rgba(255, 255, 255, 0.55);
+      --chip-active-bg: rgba(124, 58, 237, 0.1);
+      --chip-active-border: rgba(124, 58, 237, 0.3);
+      --chip-inactive-bg: rgba(0, 0, 0, 0.02);
+      --chip-inactive-border: rgba(0, 0, 0, 0.05);
+      --empty-state: rgba(0, 0, 0, 0.02);
+
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.035);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.07);
+      --shadow-glow: 0 4px 32px rgba(6, 182, 212, 0.03);
+
+      --mesh-opacity: 0.04;
+    }
+
+    /* ================================================================
+       RESET & BASE
+       ================================================================ */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
-      font-family: 'Courier New', Courier, monospace, sans-serif;
-      background: linear-gradient(120deg, #0f0c29, #302b63);
-      margin: 0;
-      padding: 2rem;
-      color: #e0e0e0;
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(147, 51, 234, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(6, 182, 212, 0.04) 0%, transparent 60%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      transition: background var(--transition-base), color var(--transition-base);
+    }
+    button, select { font-family: var(--font-sans); }
+
+    /* ========== Mesh Gradient Orbs (Hero Section only) ========== */
+    .mesh-orbs {
+      position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .mesh-orb {
+      position: absolute; border-radius: 50%; filter: blur(150px);
+      opacity: var(--mesh-opacity);
+      transition: opacity var(--transition-base);
+    }
+    .mesh-orb-purple {
+      width: 520px; height: 520px;
+      background: var(--accent-dim);
+      top: -280px; left: -180px;
+      animation: meshFloat1 20s ease-in-out infinite;
+    }
+    .mesh-orb-cyan {
+      width: 480px; height: 480px;
+      background: var(--accent-teal-dim);
+      bottom: -260px; right: -160px;
+      animation: meshFloat2 24s ease-in-out infinite;
+    }
+    @keyframes meshFloat1 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33% { transform: translate(40px,30px) scale(1.12); }
+      66% { transform: translate(-20px,60px) scale(0.92); }
+    }
+    @keyframes meshFloat2 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33% { transform: translate(-50px,-20px) scale(1.15); }
+      66% { transform: translate(30px,-50px) scale(0.88); }
     }
 
-    h2 {
-      text-align: center;
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 1.2rem;
+    /* ========== Subtle Grid ========== */
+    .bg-grid {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    }
+    .bg-grid::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(128, 128, 128, 0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(128, 128, 128, 0.028) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 12%, transparent 60%);
     }
 
-    blockquote {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 1.2rem;
-      border-left: 4px solid #f39c12;
-      font-style: normal;
-      margin: 0 auto 2rem;
-      max-width: 100%;
-      color: #ffebc6;
-      border-radius: 10px;
-      box-sizing: border-box;
+    /* ========== Layout ========== */
+    .site-wrapper {
+      position: relative; z-index: 1;
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
     }
 
+    /* ========== Navigation ========== */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      background: var(--bg-nav);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: background var(--transition-base), border-color var(--transition-base);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between; height: 56px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 1.05rem; color: var(--text-primary);
+      text-decoration: none; letter-spacing: -0.01em;
+    }
+    .nav-logo-icon {
+      width: 32px; height: 32px;
+      background: var(--gradient-btn);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+    }
+    .nav-actions {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .theme-toggle {
+      width: 36px; height: 36px; padding: 0;
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-sm); background: transparent;
+      color: var(--text-secondary); cursor: pointer;
+      font-size: 1.05rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: all var(--transition-fast); flex-shrink: 0;
+    }
+    .theme-toggle:hover {
+      color: var(--accent);
+      border-color: rgba(147, 51, 234, 0.25);
+      background: rgba(147, 51, 234, 0.05);
+    }
+
+    /* ========== Hero ========== */
+    .hero {
+      text-align: center; padding: 80px 0 60px; position: relative;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border: 1px solid var(--badge-hero-border);
+      border-radius: 50px; background: var(--badge-hero-bg);
+      color: var(--accent-light); font-size: 0.78rem; font-weight: 500;
+      margin-bottom: 24px; animation: fadeInUp 0.6s ease;
+    }
+    .hero-badge-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--accent); animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      line-height: 1.12; margin-bottom: 16px;
+      animation: fadeInUp 0.6s ease 0.1s both;
+      color: var(--text-primary);
+    }
+    .hero-title .accent {
+      background: var(--gradient-title);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-subtitle {
+      font-size: 1.02rem; color: var(--text-secondary);
+      max-width: 600px; margin: 0 auto 32px; font-weight: 400;
+      line-height: 1.7; animation: fadeInUp 0.6s ease 0.2s both; padding: 0 8px;
+    }
+    .hero-subtitle strong { color: var(--text-primary); font-weight: 600; }
+    .hero-stats {
+      display: flex; justify-content: center; gap: 56px;
+      animation: fadeInUp 0.6s ease 0.3s both;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat-value {
+      font-size: 2rem; font-weight: 800; color: var(--accent);
+      letter-spacing: -0.02em; font-variant-numeric: tabular-nums;
+    }
+    .hero-stat-label {
+      font-size: 0.75rem; color: var(--text-tertiary); margin-top: 4px;
+      font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ========== Notice ========== */
+    .notice {
+      background: var(--bg-card); border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg); padding: 20px 28px;
+      margin-bottom: 40px; backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      animation: fadeInUp 0.6s ease 0.35s both;
+      transition: background var(--transition-base), border-color var(--transition-base);
+    }
+    .notice p {
+      color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; margin: 0;
+    }
+    .notice strong { color: var(--accent-light); font-weight: 600; }
+
+    /* ========== Section Header (15% rule: H2 gradient, label mono) ========== */
+    .section-header {
+      text-align: center; margin-bottom: 24px;
+    }
+    .section-label {
+      font-size: 0.72rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--accent-teal); margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: 1.8rem; font-weight: 700; letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    /* ========== Filter Bar ========== */
+    .filter-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; margin-bottom: 20px;
+      padding: 16px 20px;
+      background: var(--filter-bg); border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: background var(--transition-base), border-color var(--transition-base);
+    }
+    .filter-bar .filter-left {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+    .filter-bar .filter-right {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .filter-label {
+      font-size: 0.76rem; font-weight: 600; color: var(--text-tertiary);
+      text-transform: uppercase; letter-spacing: 0.05em;
+      margin-right: 2px; white-space: nowrap;
+    }
+    .filter-chip {
+      padding: 6px 12px; border-radius: 50px;
+      font-size: 0.74rem; font-weight: 500; cursor: pointer;
+      border: 1px solid var(--chip-inactive-border);
+      background: var(--chip-inactive-bg);
+      color: var(--text-tertiary);
+      transition: all var(--transition-fast);
+      white-space: nowrap; user-select: none;
+    }
+    .filter-chip:hover {
+      color: var(--text-primary);
+      border-color: var(--border-card);
+    }
+    .filter-chip.active {
+      background: var(--chip-active-bg);
+      border-color: var(--chip-active-border);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .filter-sort {
+      padding: 6px 12px;
+      border-radius: 50px; border: 1px solid var(--chip-inactive-border);
+      background: var(--chip-inactive-bg);
+      color: var(--text-secondary); font-size: 0.74rem; font-weight: 500;
+      cursor: pointer; outline: none;
+      transition: all var(--transition-fast);
+      -webkit-appearance: none; appearance: none;
+      padding-right: 28px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239ca3af'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+    }
+    .filter-sort:hover {
+      border-color: var(--border-card);
+      color: var(--text-primary);
+    }
+    .filter-count {
+      font-size: 0.76rem; color: var(--text-tertiary);
+      font-weight: 500; white-space: nowrap;
+    }
+    .filter-count em {
+      color: var(--accent); font-style: normal; font-weight: 700;
+    }
+    .filter-reset {
+      padding: 4px 10px; border-radius: 50px;
+      font-size: 0.7rem; font-weight: 500; cursor: pointer;
+      background: transparent; border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+    .filter-reset:hover {
+      color: var(--text-secondary);
+      border-color: var(--border-card);
+    }
+
+    /* ========== Card Grid — Glassmorphism ========== */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 20px; margin-bottom: 48px;
+    }
     .card {
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 10px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-      padding: 1.2rem;
-      margin-bottom: 2rem;
-      color: #e5e5e5;
+      position: relative; overflow: hidden;
+      padding: 28px;
+      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border-card);
+      transition: all var(--transition-base);
+      animation: fadeInUp 0.5s ease both;
+    }
+    .card::before {
+      content: ''; position: absolute; inset: 0; z-index: 0;
+      background: var(--gradient-card); opacity: 0;
+      transition: opacity var(--transition-base);
+      pointer-events: none;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(147, 51, 234, 0.2);
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), 0 0 60px rgba(147, 51, 234, 0.05);
+      background: var(--bg-card-hover);
+    }
+    .card:hover::before { opacity: 1; }
+    .card > * { position: relative; z-index: 1; }
+    .card-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 12px; gap: 10px;
+    }
+    .card-name {
+      font-size: 1.15rem; font-weight: 700; color: var(--text-primary);
+      letter-spacing: -0.01em; text-decoration: none;
+      transition: color var(--transition-fast); word-break: break-word;
+    }
+    .card-name:hover { color: var(--accent); }
+    .card-stars {
+      font-size: 0.82rem; color: var(--accent);
+      white-space: nowrap; margin-left: 8px;
+    }
+    .card-badge {
+      display: inline-flex; align-items: center;
+      padding: 3px 10px; border-radius: 50px;
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.02em; white-space: nowrap;
+    }
+    .badge-protocol {
+      background: var(--badge-protocol-bg); color: var(--accent-teal);
+      border: 1px solid var(--badge-protocol-border);
+    }
+    .badge-discount {
+      background: var(--badge-discount-bg); color: var(--accent);
+      border: 1px solid var(--badge-discount-border);
+      animation: pulse 3s ease-in-out infinite;
+    }
+    .card-tags {
+      font-size: 0.78rem; color: var(--text-tertiary);
+      margin-bottom: 12px; line-height: 1.5;
+    }
+    .card-desc {
+      font-size: 0.84rem; color: var(--text-secondary);
+      margin-bottom: 16px; line-height: 1.65;
+    }
+    .card-pricing {
+      background: var(--pricing-bg); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md); padding: 14px 16px;
+      margin-bottom: 14px;
+      transition: background var(--transition-base);
+    }
+    .card-pricing-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 6px 0; font-size: 0.8rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .card-pricing-row:last-child { border-bottom: none; }
+    .card-pricing-label { color: var(--text-tertiary); font-weight: 500; }
+    .card-pricing-value {
+      color: var(--text-primary); font-weight: 600;
+      font-family: var(--font-mono); font-size: 0.76rem;
+    }
+    .card-pricing-value.price-highlight {
+      color: var(--accent); font-size: 0.84rem;
+    }
+    .card-discount {
+      font-size: 0.76rem; color: var(--accent);
+      background: var(--discount-bg); border: 1px solid var(--discount-border);
+      border-radius: var(--radius-sm); padding: 10px 14px;
+      margin-bottom: 16px; line-height: 1.5;
+      transition: background var(--transition-base), border-color var(--transition-base);
+    }
+    .card-discount.expired {
+      color: var(--text-muted); background: transparent;
+      border-color: var(--border-subtle); text-decoration: line-through;
+    }
+    .card-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px; background: var(--gradient-btn);
+      color: #fff; font-weight: 600; font-size: 0.84rem;
+      border-radius: var(--radius-sm); text-decoration: none;
+      transition: all var(--transition-fast); letter-spacing: 0.01em;
+    }
+    .card-cta:hover {
+      background: var(--gradient-btn-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(147, 51, 234, 0.3);
+    }
+    .card-cta-arrow { transition: transform var(--transition-fast); }
+    .card-cta:hover .card-cta-arrow { transform: translateX(3px); }
+
+    .empty-state {
+      display: none;
+      grid-column: 1 / -1;
+      text-align: center; padding: 60px 24px;
+      background: var(--empty-state);
+      border: 1px dashed var(--border-card);
+      border-radius: var(--radius-lg);
+    }
+    .empty-state.show { display: block; }
+    .empty-state-icon { font-size: 3rem; margin-bottom: 12px; opacity: 0.5; }
+    .empty-state-text { color: var(--text-tertiary); font-size: 0.95rem; }
+    .empty-state-sub { color: var(--text-muted); font-size: 0.82rem; margin-top: 4px; }
+
+    /* ========== Table ========== */
+    .table-wrapper {
+      background: var(--bg-card); border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg); overflow: hidden;
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      margin-bottom: 48px;
+      transition: background var(--transition-base), border-color var(--transition-base);
+    }
+    .table-header-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px; border-bottom: 1px solid var(--border-subtle);
+    }
+    .table-title {
+      font-weight: 600; font-size: 0.88rem;
+      color: var(--text-secondary); letter-spacing: 0.02em;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    thead th {
+      background: var(--table-th-bg); padding: 14px 20px; text-align: left;
+      font-weight: 600; font-size: 0.72rem; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--text-tertiary);
+      border-bottom: 1px solid var(--border-subtle); white-space: nowrap;
+    }
+    tbody td {
+      padding: 14px 20px; border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      transition: background var(--transition-fast);
+    }
+    tbody tr { transition: background var(--transition-fast); }
+    tbody tr:hover { background: var(--table-hover); }
+    tbody tr:hover td { color: var(--text-primary); }
+    tbody tr:last-child td { border-bottom: none; }
+    .table-name { font-weight: 600; color: var(--text-primary); white-space: nowrap; }
+    .table-link {
+      color: var(--accent-teal); text-decoration: none;
+      font-weight: 500; font-size: 0.8rem;
+      transition: color var(--transition-fast);
+    }
+    .table-link:hover { color: var(--accent-teal-light); text-decoration: underline; }
+    .table-scroll {
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+    }
+    .table-scroll::-webkit-scrollbar { height: 4px; }
+    .table-scroll::-webkit-scrollbar-track { background: transparent; }
+    .table-scroll::-webkit-scrollbar-thumb { background: var(--border-card); border-radius: 2px; }
+
+    /* ========== FAQ ========== */
+    .faq { margin-bottom: 60px; }
+    .faq-list {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .faq-item {
+      background: var(--faq-bg); border: 1px solid var(--border-card);
+      border-radius: var(--radius-md); overflow: hidden;
+      transition: all var(--transition-base);
+    }
+    .faq-item:hover {
+      background: var(--faq-hover);
+      border-color: rgba(147, 51, 234, 0.1);
+    }
+    .faq-question {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 24px; cursor: pointer; user-select: none;
+      font-weight: 600; font-size: 0.94rem;
+      color: var(--text-primary); letter-spacing: -0.01em;
+      transition: color var(--transition-fast);
+    }
+    .faq-question:hover { color: var(--accent-teal); }
+    .faq-arrow {
+      width: 20px; height: 20px; display: flex; align-items: center;
+      justify-content: center; font-size: 0.65rem;
+      color: var(--text-tertiary); transition: transform var(--transition-base);
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); color: var(--accent-teal); }
+    .faq-item.open .faq-question { color: var(--accent-teal); }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .faq-item.open .faq-answer { max-height: 600px; }
+    .faq-answer-inner {
+      padding: 0 24px 20px; color: var(--text-secondary);
+      font-size: 0.86rem; line-height: 1.8;
+    }
+    .faq-answer-inner strong {
+      color: var(--accent-light); font-weight: 600;
+    }
+    .faq-answer-inner ul {
+      padding-left: 20px; margin: 8px 0;
+    }
+    .faq-answer-inner li { margin-bottom: 4px; }
+
+    /* ========== Recommend ========== */
+    .recommend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 20px; margin-bottom: 60px;
+    }
+    .recommend-card {
+      background: var(--bg-card); border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg); padding: 28px;
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      transition: all var(--transition-base);
+    }
+    .recommend-card:hover {
+      border-color: rgba(147, 51, 234, 0.18);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+    .recommend-icon { font-size: 1.5rem; margin-bottom: 12px; }
+    .recommend-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+    .recommend-title span { color: var(--accent); }
+    .recommend-desc {
+      font-size: 0.84rem; color: var(--text-secondary); line-height: 1.7;
     }
 
-    .card h3 {
-      color: #7ed6df;
-      font-size: 1.6rem;
-      font-weight: 600;
-      margin-top: 0;
-      margin-bottom: 0.5rem;
+    /* ========== Footer ========== */
+    .footer {
+      border-top: 1px solid var(--border-subtle);
+      transition: border-color var(--transition-base);
     }
-    .card h3 a:hover {
-      text-decoration: underline;
-    }
-
-    .tagline {
-      color: #c8d6e5;
-      font-weight: 500;
-      margin-bottom: 1rem;
-    }
-
-    .price {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 1rem;
-      border-radius: 8px;
-      margin-top: 1rem;
-      color: #dddddd;
-    }
-
-    .price span {
-      display: block;
-      margin-bottom: 0.4rem;
-    }
-
-    .link-btn {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.6rem 1.2rem;
-      background: linear-gradient(135deg, #00c6ff, #0072ff);
-      color: #f0f0f0;
-      font-weight: 600;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: background 0.3s ease;
-    }
-
-    .link-btn:hover {
-      background: linear-gradient(135deg, #0072ff, #00c6ff);
-    }
-
-    .highlight {
-      color: #e17055;
-      font-weight: bold;
-    }
-
-    .note {
-      background-color: rgba(255, 255, 255, 0.07);
-      padding: 1rem;
-      border-left: 4px solid #f1c40f;
-      margin-top: 1rem;
-      color: #ffeaa7;
-    }
-
-    body[data-theme='light'] {
-      background: linear-gradient(120deg, #e6f4ea, #c9e4d6);
-      color: #2c3e50;
-    }
-
-    body[data-theme='light'] h2 {
-      color: #2c3e50;
-    }
-
-    body[data-theme='light'] blockquote {
-      background: rgba(255, 255, 255, 0.8);
-      color: #2c3e50;
-      border-left: 4px solid #66bb6a;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-
-    body[data-theme='light'] .card {
-      background: rgba(255, 255, 255, 0.85);
-      color: #2c3e50;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-    }
-
-    body[data-theme='light'] .card h3 {
-      color: #2e7d32;
-    }
-
-    body[data-theme='light'] .tagline {
-      color: #388e3c;
-    }
-
-    body[data-theme='light'] .price {
-      background: #f0f3f4;
-      color: #2c3e50;
-    }
-
-    body[data-theme='light'] .note {
-      background: #fffbe6;
-      color: #2c3e50;
-      border-left-color: #f39c12;
-    }
-
-    body[data-theme='light'] .link-btn {
-      background: linear-gradient(135deg, #66bb6a, #43a047);
-      color: #fff;
-    }
-
-    body[data-theme='light'] .link-btn:hover {
-      background: linear-gradient(135deg, #43a047, #66bb6a);
-    }
-
-    table {
-      border: 1px solid #888;
-      font-size: 0.95rem;
-      margin: 1rem 0;
-    }
-
-    th, td {
-      padding: 0.6rem 1rem;
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto; padding: 20px 24px;
       text-align: center;
-      border: 1px solid #555;
+    }
+    .footer-info {
+      font-size: 0.8rem; color: var(--text-muted);
+      font-weight: 500;
     }
 
-    thead {
-      background-color: rgba(255, 255, 255, 0.1);
+    /* ========== Scroll Reveal ========== */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ========== Particles ========== */
+    .particles {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.2;
+    }
+    .particle {
+      position: absolute; background: var(--accent);
+      border-radius: 50%; animation: particleDrift linear infinite;
+    }
+    @keyframes particleDrift {
+      0% { transform: translateY(0) translateX(0); opacity: 0; }
+      10% { opacity: 0.7; } 90% { opacity: 0.7; }
+      100% { transform: translateY(-100vh) translateX(30px); opacity: 0; }
     }
 
-    body[data-theme='light'] table {
-      border-color: #bbb;
+    /* ================================================================
+       RESPONSIVE — TABLET (< 1024px)
+       ================================================================ */
+    @media (max-width: 1024px) {
+      .site-wrapper { padding: 0 20px; }
+      .card-grid { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+      .recommend { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .hero { padding: 60px 0 48px; }
+      .footer-inner { padding: 18px 20px; }
     }
 
-    body[data-theme='light'] th, body[data-theme='light'] td {
-      border-color: #ccc;
-    }
-
-    body[data-theme='light'] thead {
-      background-color: #e0f2f1;
-    }
-
+    /* ================================================================
+       RESPONSIVE — MOBILE (< 768px)
+       ================================================================ */
     @media (max-width: 768px) {
-      body {
-        padding: 1rem;
-        font-size: 0.95rem;
-      }
+      .nav-inner { height: 52px; padding: 0 16px; }
+      .nav-logo { font-size: 0.95rem; }
+      .nav-logo-icon { width: 28px; height: 28px; font-size: 13px; }
 
-      h2 {
-        font-size: 2rem;
-      }
+      .hero { padding: 40px 0 36px; }
+      .hero-title { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+      .hero-subtitle { font-size: 0.9rem; margin-bottom: 24px; line-height: 1.65; }
+      .hero-stats { gap: 28px; flex-wrap: wrap; }
+      .hero-stat-value { font-size: 1.4rem; }
+      .hero-stat-label { font-size: 0.7rem; }
 
-      .card {
-        padding: 1.2rem;
+      .filter-bar {
+        flex-direction: column; align-items: stretch;
+        padding: 14px 16px; gap: 10px;
       }
+      .filter-bar .filter-left { justify-content: center; }
+      .filter-bar .filter-right { justify-content: center; }
+      .filter-chip { font-size: 0.72rem; padding: 5px 10px; }
 
-      .link-btn {
-        padding: 0.8rem 1.4rem;
-        font-size: 1rem;
-        display: block;
-        width: 100%;
-        text-align: center;
-        margin: 1.2rem 0 0;
-        box-sizing: border-box;
+      .notice {
+        padding: 16px 20px; margin-bottom: 28px;
+        border-radius: var(--radius-md);
       }
+      .notice p { font-size: 0.84rem; line-height: 1.7; }
 
-      table {
-        font-size: 0.85rem;
-      }
+      .section-header { margin-bottom: 20px; }
+      .section-title { font-size: 1.4rem; }
 
-      th, td {
-        padding: 0.5rem;
-      }
+      .card-grid { grid-template-columns: 1fr; gap: 14px; margin-bottom: 36px; }
+      .card { padding: 20px; border-radius: var(--radius-md); }
+      .card-name { font-size: 1.02rem; }
+      .card-cta { width: 100%; justify-content: center; padding: 12px 20px; font-size: 0.88rem; }
 
-      #airport-table-container {
-        display: none;
-      }
+      .table-header-bar { padding: 12px 16px; }
+      table { font-size: 0.76rem; }
+      thead th, tbody td { padding: 10px 12px; }
 
-      #theme-toggle-btn {
-        min-height: 44px;
-        padding: 0.6rem 1.2rem;
-      }
+      .faq-question { padding: 14px 18px; font-size: 0.86rem; }
+      .faq-answer-inner { padding: 0 18px 16px; font-size: 0.8rem; }
+
+      .recommend { grid-template-columns: 1fr; gap: 14px; margin-bottom: 40px; }
+      .recommend-card { padding: 20px; border-radius: var(--radius-md); }
+
+      .footer-inner { padding: 16px 20px; }
+
+      .card:hover { transform: none; }
+      .card:active { transform: scale(0.98); }
+      .recommend-card:hover { transform: none; }
+      .recommend-card:active { transform: scale(0.98); }
+
+      .mesh-orb-purple { width: 350px; height: 350px; top: -200px; left: -120px; }
+      .mesh-orb-cyan { width: 320px; height: 320px; bottom: -180px; right: -100px; }
     }
 
-/* ❄️ Snowfall Effect */
-.snowflake {
-  position: fixed;
-  top: -10px;
-  color: #fff;
-  font-size: 1em;
-  user-select: none;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.95;
-  text-shadow: 
-    0 0 4px rgba(255,255,255,0.8),
-    0 0 8px rgba(255,255,255,0.6),
-    0 0 12px rgba(255,255,255,0.4);
-  animation-name: snow-fall, snow-shake, snow-twinkle;
-  animation-duration: linear, ease-in-out;
-  animation-iteration-count: infinite, infinite, infinite;
-}
+    /* ================================================================
+       RESPONSIVE — SMALL MOBILE (< 480px)
+       ================================================================ */
+    @media (max-width: 480px) {
+      .site-wrapper { padding: 0 12px; }
+      .nav-inner { padding: 0 12px; }
+      .hero-title { font-size: clamp(1.4rem, 7vw, 1.8rem); }
+      .hero-subtitle { font-size: 0.84rem; }
+      .hero-stats { gap: 18px; }
+      .hero-stat { flex: 1 1 auto; min-width: 80px; }
+      .hero-stat-value { font-size: 1.3rem; }
+      .hero-stat-label { font-size: 0.66rem; }
 
-@keyframes snow-fall {
-  0% {
-    top: -10px;
-  }
-  100% {
-    top: 100vh;
-  }
-}
+      .filter-bar { padding: 12px; }
+      .filter-chip { font-size: 0.68rem; padding: 4px 8px; }
+      .filter-sort { font-size: 0.68rem; padding: 4px 10px; }
 
-@keyframes snow-shake {
-  0% {
-    transform: translateX(0px);
-  }
-  50% {
-    transform: translateX(40px);
-  }
-  100% {
-    transform: translateX(0px);
-  }
-}
-@keyframes snow-twinkle {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.15);
-  }
-}
+      .card { padding: 16px; }
+      .card-header { flex-direction: column; gap: 8px; }
+      .card-pricing { padding: 10px 12px; }
+      .card-pricing-row { font-size: 0.74rem; padding: 5px 0; }
+      .card-cta { font-size: 0.82rem; padding: 10px 16px; }
 
-/* 🎆 New Year Confetti */
-.confetti {
-  position: fixed;
-  top: -10px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.9;
-  animation-name: confetti-fall;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  box-shadow:
-    0 0 6px rgba(255,255,255,0.6),
-    0 0 12px rgba(255,215,0,0.5);
-}
+      .notice { padding: 14px 16px; }
+      .notice p { font-size: 0.78rem; }
+      .section-title { font-size: 1.25rem; }
 
-@keyframes confetti-fall {
-  0% {
-    top: -10px;
-    transform: translateX(0) rotate(0deg);
-  }
-  100% {
-    top: 100vh;
-    transform: translateX(60px) rotate(360deg);
-  }
-}
+      .faq-question { padding: 12px 14px; font-size: 0.8rem; }
+      .faq-answer-inner { padding: 0 14px 14px; font-size: 0.76rem; }
 
-/* 🎇 Firework rocket */
-.firework-rocket {
-  position: fixed;
-  width: 3px;
-  height: 18px;
-  background: linear-gradient(
-    to top,
-    #ff3b30,   /* 深红：引信 */
-    #ff6b6b    /* 正红：升空 */
-  );
-  box-shadow:
-    0 0 6px rgba(255, 59, 48, 0.9),
-    0 0 14px rgba(255, 107, 107, 0.8);
-  z-index: 9999;
-  pointer-events: none;
-}
+      .recommend-card { padding: 16px; }
+      .recommend-title { font-size: 0.94rem; }
+      .recommend-desc { font-size: 0.78rem; }
 
-/* 🎆 Firework sparks */
-.firework-spark {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  animation: firework-explode 1.2s ease-out forwards;
-  box-shadow:
-    0 0 6px rgba(255,255,255,0.8),
-    0 0 12px rgba(255,215,0,0.6);
-}
+      table { font-size: 0.72rem; }
+      thead th, tbody td { padding: 8px 10px; }
 
-@keyframes firework-explode {
-  from {
-    transform: translate(0, 0) scale(1);
-    opacity: 1;
-  }
-  to {
-    transform: translate(var(--dx), var(--dy)) scale(0.6);
-    opacity: 0;
-  }
-}
+      .footer-inner { padding: 14px 12px; }
+      .footer-info { font-size: 0.75rem; }
 
-/* 🎇 Firework flash */
-.firework-flash {
-  position: fixed;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.05);
-  z-index: 9998;
-  animation: firework-flash 0.14s ease-out forwards;
-  pointer-events: none;
-}
-/* ===== Theme Toggle Button ===== */
-#theme-toggle-btn {
-  transition: background-color 0.25s ease, color 0.25s ease;
-}
-
-/* Dark 模式：亮一点，但不刺眼 */
-body[data-theme='dark'] #theme-toggle-btn {
-  background: rgba(255, 255, 255, 0.18);
-  color: #ffffff;
-}
-
-body[data-theme='dark'] #theme-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.28);
-}
-
-/* Light 模式：深字 + 浅灰底，保证对比度 */
-body[data-theme='light'] #theme-toggle-btn {
-  background: rgba(0, 0, 0, 0.08);
-  color: #2c3e50;
-}
-
-body[data-theme='light'] #theme-toggle-btn:hover {
-  background: rgba(0, 0, 0, 0.14);
-}
-.summary-box {
-  padding: 15px 20px;
-  border-radius: 6px;
-  margin-top: 2rem;
-}
-.summary-box strong:first-child {
-  letter-spacing: 0.02em;
-}
-/* ===== Summary Box：Dark Mode ===== */
-body[data-theme='dark'] .summary-box {
-  background: rgba(255, 255, 255, 0.04);
-  border-left: 5px solid #7f5af0; /* 紫色略提亮 */
-  color: #dfe6e9;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(6px);
-}
-body[data-theme='dark'] .summary-box {
-  background: rgba(255, 255, 255, 0.10);
-  border-left: 5px solid #a29bfe;
-  color: #f5f6fa;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
-}
-/* Dark 模式 summary-box 文本层级 */
-body[data-theme='dark'] .summary-box p {
-  color: #f5f6fa;
-}
-
-body[data-theme='dark'] .summary-box ul {
-  color: #e0e3eb;
-}
-
-body[data-theme='dark'] .summary-box li {
-  line-height: 1.65;
-}
-
-body[data-theme='dark'] .summary-box .highlight {
-  color: #ffd479;   /* 暖色强调，非常清楚 */
-  font-weight: 600;
-}
-
-body[data-theme='dark'] .summary-box span {
-  color: #cfd6e4;
-}
-/* ===== Summary Box：Light Mode ===== */
-body[data-theme='light'] .summary-box {
-  background: #f8f9fa;
-  border-left: 5px solid #4834d4;
-  color: #2d3436;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-}
-@keyframes firework-flash {
-  0% { opacity: 0; }
-  40% { opacity: 1; }
-  100% { opacity: 0; }
-}
+      .mesh-orb-purple { width: 250px; height: 250px; top: -150px; left: -100px; }
+      .mesh-orb-cyan { width: 220px; height: 220px; bottom: -120px; right: -80px; }
+    }
   </style>
 </head>
-<body data-theme="dark">
+<body>
+  <!-- Background Layer -->
+  <div class="bg-grid"></div>
+  <div class="particles" id="particles"></div>
 
-  <div style="text-align:right; margin-bottom:1rem;">
-    <button onclick="toggleTheme()" id="theme-toggle-btn"
-      style="padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">
-      <span id="theme-icon">🌙</span> 切换模式
-    </button>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <span class="nav-logo-icon">✈</span>
+        机场推荐
+      </a>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="切换亮色/暗色模式" title="切换亮色/暗色模式">
+          🌙
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="site-wrapper">
+    <!-- Hero + Mesh Gradient Orbs -->
+    <section class="hero" style="position:relative;">
+      <div class="mesh-orbs">
+        <div class="mesh-orb mesh-orb-purple"></div>
+        <div class="mesh-orb mesh-orb-cyan"></div>
+      </div>
+      <div class="hero-badge" style="position:relative;z-index:1;">
+        <span class="hero-badge-dot"></span>
+        持续更新 · 真实实测
+      </div>
+      <h1 class="hero-title" style="position:relative;z-index:1;">
+        精选<span class="accent">优质机场</span>服务
+      </h1>
+      <p class="hero-subtitle" style="position:relative;z-index:1;">
+        从<strong>线路质量、性价比与长期稳定性</strong>三个维度，
+        实测筛选主流机场，专注专线/中转节点，
+        为开发者与重度用户提供可靠参考。
+      </p>
+      <div class="hero-stats" style="position:relative;z-index:1;">
+        <div class="hero-stat">
+          <div class="hero-stat-value" id="stat-count">-</div>
+          <div class="hero-stat-label">精选服务商</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value" id="stat-lowest">-</div>
+          <div class="hero-stat-label">最低月费</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value" id="stat-protocols">-</div>
+          <div class="hero-stat-label">支持协议</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notice -->
+    <div class="notice reveal">
+      <p>
+        🎯 以下名单重点收录<strong>专线 / 中转</strong>节点，
+        稳定支持 <strong>ChatGPT、Gemini、Claude、Midjourney</strong> 等主流 AI 工具，
+        并兼顾 Google 服务与 Netflix 等流媒体的高速访问。
+      </p>
+    </div>
+
+    <!-- Cards Section -->
+    <div class="section-header reveal">
+      <div class="section-label">Service Directory</div>
+      <div class="section-title">服务商一览</div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar reveal" id="filter-bar">
+      <div class="filter-left">
+        <span class="filter-label">协议</span>
+        <button class="filter-chip active" data-filter="all">全部</button>
+      </div>
+      <div class="filter-right">
+        <span class="filter-count" id="filter-count"></span>
+        <select class="filter-sort" id="filter-sort">
+          <option value="default">默认排序</option>
+          <option value="price-asc">价格 ↑</option>
+          <option value="price-desc">价格 ↓</option>
+          <option value="rating-desc">评分 ↓</option>
+        </select>
+        <button class="filter-reset" id="filter-reset" style="display:none;">重置</button>
+      </div>
+    </div>
+
+    <div class="card-grid" id="airport-card-container">
+      <div class="empty-state" id="empty-state">
+        <div class="empty-state-icon">🔍</div>
+        <div class="empty-state-text">没有匹配的服务商</div>
+        <div class="empty-state-sub">试试其他筛选条件</div>
+      </div>
+    </div>
+
+    <!-- Table Section -->
+    <div class="section-header reveal" style="margin-top: 20px;">
+      <div class="section-label">Quick Compare</div>
+      <div class="section-title">快速对比</div>
+    </div>
+    <div class="table-wrapper reveal" id="airport-table-container"></div>
+
+    <!-- FAQ -->
+    <div class="section-header reveal">
+      <div class="section-label">FAQ</div>
+      <div class="section-title">常见问题</div>
+    </div>
+    <div class="faq reveal">
+      <div class="faq-list">
+        <div class="faq-item open">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            怎么选择适合自己的机场？
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <p>主要看三个维度：</p>
+              <ul>
+                <li><strong>预算</strong>：月付 ¥5-10 的入门级（如 Bigme）适合轻度 AI 使用；月付 ¥15-30 的专线级（如 Forest）适合对稳定性有要求的工作场景。</li>
+                <li><strong>流量需求</strong>：日常 AI 对话每月 30-50G 足够；高频视频/下载建议 100G 起步。</li>
+                <li><strong>协议偏好</strong>：多数机场支持 SS/Trojan，新手友好；需要更高级特性可关注 Hysteria 2 协议支持。</li>
+              </ul>
+              <p>建议先买一个月试用，满意再年付。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            这些机场安全吗？会不会跑路？
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <p>任何机场都存在运营风险。以下建议可降低损失：</p>
+              <ul>
+                <li><strong>月付优先</strong>，不要一次性买多年，即使年付折扣诱人。</li>
+                <li><strong>用 USDT/虚拟卡</strong> 等匿名方式支付，保护个人隐私。</li>
+                <li><strong>备用方案</strong>：建议持有 2 个不同机场的套餐，互为备份。</li>
+                <li>本站推荐的机场均经过一定时间的运营验证，但不构成任何担保。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            买了套餐之后怎么使用？
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <p>通常流程是：</p>
+              <ul>
+                <li><strong>1. 下载客户端</strong>：iOS 用小火箭（Shadowrocket）/ Quantumult X；Android 用 Clash Meta / v2rayNG；Windows/Mac 用 Clash Verge。</li>
+                <li><strong>2. 订阅导入</strong>：在机场官网复制订阅链接 → 在客户端中粘贴导入 → 自动同步所有节点。</li>
+                <li><strong>3. 选择节点</strong>：一般选自动/延迟最低的节点即可，有特殊需求再手动切。</li>
+              </ul>
+              <p>各机场官网都有详细的图文教程，照着操作就行。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            这些机场支持哪些设备？能同时用吗？
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <p>主流机场均支持全平台：<strong>iOS、Android、Windows、macOS、Linux、路由器（OpenWrt/Merlin）</strong>。</p>
+              <p>关于同时在线设备数：</p>
+              <ul>
+                <li>大多数机场允许 <strong>1-5 个 IP 同时在线</strong>，超出可能被临时限制。</li>
+                <li>如果是家庭/团队共享，建议确认套餐的 IP 限制数。</li>
+                <li>一般手机+电脑两台设备完全没问题。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            网速怎么样？能看 4K 视频吗？
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <p>取决于节点类型和你的本地网络：</p>
+              <ul>
+                <li><strong>中转/专线节点</strong>：晚高峰也能保持 50-200 Mbps，流畅 4K。</li>
+                <li><strong>直连节点</strong>：速度波动大，晚高峰可能卡顿。</li>
+                <li>本站推荐的机场均以中转/专线为主，日常使用体验有保障。</li>
+              </ul>
+              <p>实际速度受本地宽带、路由、时段等多因素影响，建议购买前先测试。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommendation -->
+    <div class="section-header reveal">
+      <div class="section-label">Buying Guide</div>
+      <div class="section-title">选购建议</div>
+    </div>
+    <div class="recommend">
+      <div class="recommend-card reveal">
+        <div class="recommend-icon">🎓</div>
+        <div class="recommend-title"><span>入门首选</span> / AI 专用</div>
+        <div class="recommend-desc">
+          推荐 <strong style="color: var(--accent-light);">Bigme 大米加速</strong>，年付月均约 ¥5，
+          成本控制极佳。流量策略偏防守，足以从容应对日常 AI 交互与资料查阅，
+          是高性价比的主力或完美备用方案。
+        </div>
+      </div>
+      <div class="recommend-card reveal">
+        <div class="recommend-icon">🏢</div>
+        <div class="recommend-title"><span>跨境办公</span> / 极致稳定</div>
+        <div class="recommend-desc">
+          推荐 <strong style="color: var(--accent-light);">Forest 机场</strong>，金融级跨境专线，
+          起步即送 200G 充裕流量。特殊时期或晚高峰表现坚挺，
+          适合对连接可靠性有刚性需求的进阶用户。
+        </div>
+      </div>
+    </div>
   </div>
 
-  <h2>
-    <span id="spring-year-title"></span>仍可放心使用的机场服务
-  </h2>
-  <p id="spring-festival-greeting" style="text-align:center; font-size:1.1rem; margin-top:0.6rem; margin-bottom:1.6rem; display:none;">
-    🧧 恭祝大家 <span id="spring-year-greeting"></span>新春顺遂，阖家安康！
-  </p>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-info">© 2026 Eason 版权所有 · ✈ 机场推荐 · <span id="footer-update"></span></div>
+    </div>
+  </footer>
 
-<p style="text-align:center; color:#636e72; font-size:1rem; margin-top:-0.5rem; margin-bottom:2rem; font-weight: 500;">
-  ⚡️ 晚高峰稳定 · 原生 IP 节点 · 全场景 AI 解锁
-</p>
+  <script>
+    // ========== Airport Data ==========
+    const airports = [
+      {
+        "name": "Riolu 精灵学院",
+        "star": 4,
+        "description": "2023 年开业，支持直连+中转，多协议自选，客户端定制化体验。",
+        "tags": "SS / VLESS / Trojan 多协议，小白友好",
+        "protocols": ["SS", "Trojan", "Hysteria 2"],
+        "price_num": 8,
+        "price": "￥8/月起",
+        "traffic": "30G/月起",
+        "annual_discount": "95折",
+        "discount": "🧧 新用户优惠码：New2025，九五折优惠，季付/半年付/年付可用",
+        "discount_expire": false,
+        "url": "https://jump.riolu.work/register?aff=UNlKm79n",
+        "idx": 1,
+        "hidden": 0,
+        "parallel": true
+      },
+      {
+        "name": "Bigme 大米加速",
+        "star": 5,
+        "description": "2023 年开业，主打性价比，支持 Netflix、Disney+、TikTok 和 ChatGPT。不限时长按量付费，全节点公网中转。",
+        "tags": "SS / Trojan / Hysteria 2 多协议，流媒体解锁好",
+        "protocols": ["Trojan", "Hysteria 2", "Anytls"],
+        "price_num": 6,
+        "price": "￥6/月起",
+        "traffic": "45G/月起",
+        "annual_discount": "8折",
+        "discount": "🧧 新年活动，年付套餐 8 折，优惠券码：xinnian666",
+        "discount_expire": false,
+        "url": "https://1s.bigmeok.me/user#/register?code=hrBKYct6",
+        "idx": 2,
+        "hidden": 0,
+        "parallel": true
+      },
+      {
+        "name": "Forest 机场",
+        "star": 4,
+        "description": "金融级别跨境线路，全球多国家使用支持流媒体解锁。支持 Netflix、Disney+、TikTok 和 ChatGPT。",
+        "tags": "SS 协议，支持多平台",
+        "protocols": ["SSR", "V2ray"],
+        "price_num": 29.88,
+        "price": "￥29.88/月起",
+        "traffic": "200G/月起",
+        "annual_discount": "7折",
+        "discount": "🎁 五一限时，全场8折，专属优惠码：5188，活动截止5月5日",
+        "discount_expire": false,
+        "url": "https://forest-cn.com/register?code=eb6TFA2X",
+        "idx": 3,
+        "hidden": 0,
+        "parallel": true
+      },
+      {
+        "name": "阿拉丁机场",
+        "star": 5,
+        "description": "2024 年开业，支持多地区节点和个性化定制。Netflix、Disney+、ChatGPT 支持优良。",
+        "tags": "SS 协议，奈飞免登录，中转性价比高",
+        "protocols": ["Shadowsocks"],
+        "price_num": 8,
+        "price": "￥8/月起",
+        "traffic": "50G/月起",
+        "annual_discount": "-",
+        "discount": "",
+        "discount_expire": false,
+        "url": "https://www.avatargpt.xyz/register?aff=9D4SamHzdl",
+        "idx": 4,
+        "hidden": 1,
+        "parallel": true
+      },
+      {
+        "name": "蓝帆云机场",
+        "star": 5,
+        "description": "2024 年新开机场，BGP中转 + IPLC 专线，节点数量多，覆盖国内常用地区。",
+        "tags": "BGP中转 + IPLC 专线节点 SSR / V2ray 机场",
+        "protocols": ["Hysteria 2", "SSR", "V2ray"],
+        "price_num": 12.99,
+        "price": "￥12.99/月起",
+        "traffic": "50G/月起",
+        "annual_discount": "7折",
+        "discount": "🎉 年费7折优惠代码：lanfan，新疆省无法使用请勿购买",
+        "discount_expire": false,
+        "url": "https://lanfanz.cc/auth/register?code=E1I7",
+        "idx": 5,
+        "hidden": 0,
+        "parallel": true
+      },
+      {
+        "name": "FATCAT 肥猫云机场",
+        "star": 4,
+        "description": "2023 年成立，IEPL 专线节点，支持多流媒体和 ChatGPT，年付套餐优惠大。",
+        "tags": "Trojan 协议，专线稳定，团队海外",
+        "protocols": ["Shadowsocks"],
+        "price_num": 9.9,
+        "price": "￥9.9/月起",
+        "traffic": "50G/月起",
+        "annual_discount": "8折",
+        "discount": "🧧 优惠码 newyear202685 享85折，年付用 newyear202680 享8折",
+        "discount_expire": false,
+        "url": "https://inv02.fatcatcloud.cc/register?aff=wzxvsdIy",
+        "idx": 6,
+        "hidden": 0,
+        "parallel": true
+      }
+    ];
 
-<blockquote>
-  <p>
-    为避免盲目试错，我们从
-    <strong class="highlight">线路质量、性价比与长期稳定性</strong>
-    三个维度，对主流机场服务进行了实测与对比筛选。
-  </p>
-  <p>
-    以下名单重点收录<strong>专线 / 中转</strong>节点，
-    稳定支持 <strong class="highlight">ChatGPT、Gemini、Claude、Midjourney</strong> 等主流 AI 工具，
-    并兼顾 Google 服务与 Netflix 等流媒体的高速访问，
-    更适合对网络质量有明确要求的开发者与中重度用户。
-  </p>
-</blockquote>
+    // ========== Theme Toggle ==========
+    (function initTheme() {
+      var html = document.documentElement;
+      var toggle = document.getElementById('theme-toggle');
+      var saved = localStorage.getItem('theme');
+      if (saved === 'light' || saved === 'dark') {
+        html.setAttribute('data-theme', saved);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        html.setAttribute('data-theme', 'light');
+      }
+      function updateIcon() {
+        toggle.textContent = html.getAttribute('data-theme') === 'dark' ? '🌙' : '☀️';
+      }
+      updateIcon();
+      toggle.addEventListener('click', function() {
+        var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        updateIcon();
+      });
+      if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+          if (!localStorage.getItem('theme')) {
+            html.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+            updateIcon();
+          }
+        });
+      }
+    })();
 
-<div id="airport-card-container"></div>
-<div id="airport-table-container" style="overflow-x:auto; margin-bottom:2rem; max-width:100vw;"></div>
+    // ========== Stats ==========
+    function animateStats() {
+      var sorted = airports.filter(function(a) { return a.hidden !== 1; });
+      var count = sorted.length;
+      var prices = sorted.map(function(a) { return a.price_num || 0; }).filter(function(p) { return p > 0; });
+      var lowest = prices.length > 0 ? Math.min.apply(null, prices) : 0;
+      var allProtocols = new Set();
+      sorted.forEach(function(a) { (a.protocols || []).forEach(function(p) { allProtocols.add(p); }); });
+      animateValue('stat-count', 0, count, 1000);
+      animateValue('stat-lowest', 0, lowest, 1200, '\u00a5', '/月起');
+      animateValue('stat-protocols', 0, allProtocols.size, 1400);
+    }
+    function animateValue(id, start, end, duration, prefix, suffix) {
+      prefix = prefix || ''; suffix = suffix || '';
+      var el = document.getElementById(id);
+      if (!el) return;
+      var startTime = performance.now();
+      function update(now) {
+        var elapsed = now - startTime;
+        var progress = Math.min(elapsed / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = Math.round(start + (end - start) * eased);
+        el.textContent = prefix + current + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
 
-<div class="summary-box">
-  <p style="margin-top: 0; font-size: 1.05rem;">
-    <strong>💡 选购建议（一分钟速览）：</strong>
-  </p>
-  <ul style="margin-bottom: 0; padding-left: 1.2rem;">
-    <li>
-      <strong class="highlight">入门首选 / ChatGPT 专用：Bigme</strong><br>
-      年付月均约 5 元，成本控制极佳。
-      虽然流量策略偏防守，但足以从容应对日常 AI 交互与资料查阅，
-      <span style="text-decoration-color: #b2bec3;">是高性价比的主力或完美备用方案。</span>
-    </li>
-    <li style="margin-top: 12px;">
-      <strong class="highlight"">跨境办公 / 极致稳定：Forest</strong><br>
-      采用金融级跨境专线，起步即送 200G 充裕流量。
-      在特殊时期或晚高峰网络拥堵下表现坚挺，
-      <span style="text-decoration-color: #b2bec3;">适合对连接可靠性有刚性需求的进阶用户。</span>
-    </li>
-  </ul>
-</div>
+    // ========== Scroll Reveal ==========
+    function initScrollReveal() {
+      var reveals = document.querySelectorAll('.reveal');
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(function(el) { observer.observe(el); });
+    }
 
+    // ========== FAQ Toggle ==========
+    function toggleFaq(el) {
+      el.parentElement.classList.toggle('open');
+    }
+    window.toggleFaq = toggleFaq;
+
+    // ========== Filter & Sort ==========
+    var filteredData = airports.filter(function(d) { return d.hidden !== 1; });
+    var currentFilter = 'all';
+    var currentSort = 'default';
+
+    function getStarNumber(stars) {
+      if (typeof stars === 'number') return stars;
+      if (typeof stars === 'string') return (stars.match(/★/g) || []).length;
+      return 0;
+    }
+
+    function getUniqueProtocols() {
+      var set = new Set();
+      filteredData.forEach(function(d) { (d.protocols || []).forEach(function(p) { set.add(p); }); });
+      return Array.from(set);
+    }
+
+    function buildFilterChips() {
+      var left = document.querySelector('#filter-bar .filter-left');
+      var protocols = getUniqueProtocols();
+      protocols.forEach(function(proto) {
+        var chip = document.createElement('button');
+        chip.className = 'filter-chip';
+        chip.setAttribute('data-filter', proto);
+        chip.textContent = proto;
+        chip.addEventListener('click', function() {
+          currentFilter = proto;
+          document.querySelectorAll('.filter-chip').forEach(function(c) { c.classList.remove('active'); });
+          chip.classList.add('active');
+          document.getElementById('filter-reset').style.display = 'inline-flex';
+          applyFilters();
+        });
+        left.appendChild(chip);
+      });
+      var allChip = left.querySelector('[data-filter="all"]');
+      allChip.addEventListener('click', function() {
+        currentFilter = 'all';
+        document.querySelectorAll('.filter-chip').forEach(function(c) { c.classList.remove('active'); });
+        allChip.classList.add('active');
+        document.getElementById('filter-reset').style.display = 'none';
+        applyFilters();
+      });
+    }
+
+    function applyFilters() {
+      var result = filteredData.slice();
+      if (currentFilter !== 'all') {
+        result = result.filter(function(d) { return (d.protocols || []).indexOf(currentFilter) !== -1; });
+      }
+      switch (currentSort) {
+        case 'price-asc':
+          result.sort(function(a, b) { return (a.price_num || 999) - (b.price_num || 999); });
+          break;
+        case 'price-desc':
+          result.sort(function(a, b) { return (b.price_num || 0) - (a.price_num || 0); });
+          break;
+        case 'rating-desc':
+          result.sort(function(a, b) { return getStarNumber(b.star) - getStarNumber(a.star); });
+          break;
+        default:
+          result.sort(function(a, b) { return (a.idx || 999) - (b.idx || 999); });
+      }
+      renderCards(result);
+      updateFilterCount(result);
+    }
+
+    function updateFilterCount(result) {
+      var count = document.getElementById('filter-count');
+      count.innerHTML = '共 <em>' + result.length + '</em> 个服务商';
+      document.getElementById('empty-state').classList.toggle('show', result.length === 0);
+    }
+
+    // ========== Render Cards ==========
+    function renderCards(data) {
+      var container = document.getElementById('airport-card-container');
+      container.querySelectorAll('.card').forEach(function(c) { c.remove(); });
+      var empty = document.getElementById('empty-state');
+      empty.classList.remove('show');
+
+      if (data.length === 0) {
+        empty.classList.add('show');
+        container.appendChild(empty);
+        return;
+      }
+      container.appendChild(empty);
+
+      data.forEach(function(d, index) {
+        var card = document.createElement('div');
+        card.className = 'card reveal';
+        card.style.animationDelay = (index * 0.05) + 's';
+
+        var starDisplay = '';
+        var starNum = getStarNumber(d.star);
+        for (var i = 0; i < 5; i++) starDisplay += i < starNum ? '★' : '☆';
+
+        var protocolsBadges = (d.protocols || []).map(function(p) {
+          return '<span class="card-badge badge-protocol">' + p + '</span>';
+        }).join(' ');
+
+        var discountHTML = d.discount
+          ? '<div class="card-discount' + (d.discount_expire ? ' expired' : '') + '">' + d.discount + '</div>'
+          : '';
+
+        card.innerHTML =
+          '<div class="card-header">' +
+            '<div>' +
+              '<a href="' + d.url + '" target="_blank" rel="noopener" class="card-name">' + d.name + '</a>' +
+              '<span class="card-stars">' + starDisplay + '</span>' +
+            '</div>' +
+            '<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;">' +
+              protocolsBadges +
+              (d.discount && !d.discount_expire ? '<span class="card-badge badge-discount">惠</span>' : '') +
+            '</div>' +
+          '</div>' +
+          '<div class="card-tags">' + (d.tags || '') + '</div>' +
+          '<div class="card-desc">' + (d.description || '') + '</div>' +
+          '<div class="card-pricing">' +
+            '<div class="card-pricing-row"><span class="card-pricing-label">月费</span><span class="card-pricing-value price-highlight">' + (d.price || '-') + '</span></div>' +
+            '<div class="card-pricing-row"><span class="card-pricing-label">流量</span><span class="card-pricing-value">' + (d.traffic || '-') + '</span></div>' +
+            '<div class="card-pricing-row"><span class="card-pricing-label">年付折扣</span><span class="card-pricing-value">' + (d.annual_discount || '-') + '</span></div>' +
+          '</div>' +
+          discountHTML +
+          '<a href="' + d.url + '" target="_blank" rel="noopener" class="card-cta">访问官网<span class="card-cta-arrow"> →</span></a>';
+
+        container.insertBefore(card, empty);
+      });
+
+      var reveals = container.querySelectorAll('.reveal');
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(function(el) { observer.observe(el); });
+    }
+
+    // ========== Render Table ==========
+    function renderTable() {
+      var container = document.getElementById('airport-table-container');
+      if (!container) return;
+      var tableData = filteredData.filter(function(d) { return d.parallel === true; }).sort(function(a, b) { return (a.idx || 999) - (b.idx || 999); });
+
+      function starDisplay(s) {
+        var n = getStarNumber(s), str = '';
+        for (var i = 0; i < n; i++) str += '★';
+        return str;
+      }
+
+      var rows = tableData.map(function(d) {
+        return '<tr>' +
+          '<td class="table-name">' + d.name + '</td>' +
+          '<td>' + starDisplay(d.star) + '</td>' +
+          '<td>' + (d.protocols || []).join(', ') + '</td>' +
+          '<td>' + (d.price || '-') + '</td>' +
+          '<td>' + (d.traffic || '-') + '</td>' +
+          '<td>' + (d.annual_discount || '-') + '</td>' +
+          '<td><a href="' + d.url + '" target="_blank" rel="noopener" class="table-link">官网 →</a></td>' +
+          '</tr>';
+      }).join('');
+
+      container.innerHTML =
+        '<div class="table-header-bar"><span class="table-title">对比视图 · ' + tableData.length + ' 项</span></div>' +
+        '<div class="table-scroll"><table>' +
+          '<thead><tr><th>服务商</th><th>评分</th><th>协议</th><th>月费</th><th>月流量</th><th>年付折扣</th><th>访问</th></tr></thead>' +
+          '<tbody>' + rows + '</tbody>' +
+        '</table></div>';
+    }
+
+    // ========== Sort Handler ==========
+    document.addEventListener('DOMContentLoaded', function() {
+      var sort = document.getElementById('filter-sort');
+      sort.addEventListener('change', function() {
+        currentSort = sort.value;
+        applyFilters();
+      });
+      document.getElementById('filter-reset').addEventListener('click', function() {
+        currentFilter = 'all';
+        currentSort = 'default';
+        sort.value = 'default';
+        document.querySelectorAll('.filter-chip').forEach(function(c) { c.classList.remove('active'); });
+        document.querySelector('.filter-chip[data-filter="all"]').classList.add('active');
+        document.getElementById('filter-reset').style.display = 'none';
+        applyFilters();
+      });
+    });
+
+    // ========== Particles ==========
+    function initParticles() {
+      var container = document.getElementById('particles');
+      if (!container) return;
+      var isMobile = window.innerWidth < 768;
+      var count = isMobile ? 10 : 25;
+      for (var i = 0; i < count; i++) {
+        var p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.top = (60 + Math.random() * 40) + '%';
+        p.style.animationDuration = (18 + Math.random() * 28) + 's';
+        p.style.animationDelay = Math.random() * 22 + 's';
+        var size = 0.8 + Math.random() * 1.8;
+        p.style.width = size + 'px';
+        p.style.height = size + 'px';
+        container.appendChild(p);
+      }
+    }
+
+    // ========== Init ==========
+    document.addEventListener('DOMContentLoaded', function() {
+      buildFilterChips();
+      renderTable();
+      initParticles();
+      initScrollReveal();
+      renderCards(filteredData);
+      updateFilterCount(filteredData);
+      setTimeout(animateStats, 300);
+      document.getElementById('footer-update').textContent = '更新于 2026-06-08';
+    });
+  </script>
 </body>
 </html>
